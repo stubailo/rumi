@@ -18,8 +18,7 @@
   <h2>Household "{{name}}"</h2>
 
   {{> household_users}}
-
-  {{> household_add_expense}}
+  {{> household_expenses}}
 </template>
 
 <template name="household_users">
@@ -55,6 +54,50 @@
   <button>Leave household</button>
 </template>
 
+<template name="household_expenses">
+  <h3>Expenses</h3>
+  <table>
+    {{#each expenses}}
+      <tr>
+        {{#each object this}}
+          {{#with getUser key}}
+            <td>
+              {{primary_email}}
+            </td>
+          {{/with}}
+        {{/each}}
+      </tr>
+      <tr>
+        {{#each object this}}
+          <td>
+            {{value}}
+          </td>
+        {{/each}}
+      </tr>
+    {{/each}}
+
+    <tr><td colspan="100">Total expenses:</td></tr>
+
+    <tr>
+      {{#each object totalExpenses}}
+        {{#with getUser key}}
+          <td>
+            {{primary_email}}
+          </td>
+        {{/with}}
+      {{/each}}
+    </tr>
+    <tr>
+      {{#each object totalExpenses}}
+        <td>
+          {{value}}
+        </td>
+      {{/each}}
+    </tr>
+  </table>
+  {{> household_add_expense}}
+</template>
+
 <template name="household_add_expense">
   <h3>Add Expense</h3>
   <form>
@@ -69,7 +112,7 @@
       <tr>
         {{#each users}}
           <td>
-            <input type="number" name="{{primary_email}}" />
+            <input type="number" name="{{_id}}" />
           </td>
         {{/each}}
       </tr>

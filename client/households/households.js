@@ -45,3 +45,46 @@ Template.household_leave.events = {
     Router.go("households");
   }
 };
+
+Template.household_expenses.getUser = function(user_id) {
+  return Meteor.users.findOne({_id: user_id});
+};
+
+Template.household_expenses.totalExpenses = function() {
+  var totals = {};
+
+  if(this.expenses) {
+    this.expenses.forEach(function(expense) {
+      var user_id;
+      for(user_id in expense) {
+        if(expense.hasOwnProperty(user_id)) {
+          if(totals[user_id]) {
+            totals[user_id] += expense[user_id];
+          } else {
+            totals[user_id] = expense[user_id];
+          }
+        }
+      }
+    });
+  }
+
+  return totals;
+};
+
+Template.household_add_expense.events = {
+  "submit form": function(event, template) {
+    var user_id;
+    event.preventDefault();
+
+    var formData = Util.serializeForm(template.find("form"));
+  
+    // parse all inputs as ints
+    for(user_id in formData) {
+      if(formData.hasOwnProperty(user_id)) {
+        formData[user_id] = parseFloat(formData[user_id], 10);
+      }
+    }
+
+    this.addExpense(formData);
+  }
+};
