@@ -1,0 +1,79 @@
+<template name="household_mini">
+  <div>  
+    <a href="{{pathFor 'household'}}">Household: {{name}}</a>
+  </div>
+</template>
+
+<template name="new_household">
+  <h2>New Household</h2>
+  <form>
+    <input name="name" placeholder="name" />
+    <input type="submit" value="Create Household" />
+  </form>
+  <a href="{{pathFor 'households'}}">See all households</a>
+</template>
+
+<template name="household">
+  <a href="{{pathFor 'households'}}">See all households</a>
+  <h2>Household "{{name}}"</h2>
+
+  {{> household_users}}
+
+  {{> household_add_expense}}
+</template>
+
+<template name="household_users">
+  <h3>Users</h3>
+  <ul>
+    {{#each users}}
+      <li>{{primary_email}}</li>
+    {{/each}}
+  </ul>
+
+  {{> household_add_user}}
+  {{> household_leave}}
+</template>
+
+<template name="households">
+  <h3>Listing all households</h3>
+  {{#each households}}
+    {{> household_mini}}
+  {{/each}}
+  <a href="{{pathFor 'new_household'}}">Create a new household</a>
+</template>
+
+<template name="household_add_user">
+  {{error}}
+  <p>Add user:</p>
+  <form>
+    <input type="email" name="email" placeholder="email" />
+    <input type="submit" value="Add" />
+  </form>
+</template>
+
+<template name="household_leave">
+  <button>Leave household</button>
+</template>
+
+<template name="household_add_expense">
+  <h3>Add Expense</h3>
+  <form>
+    <table>
+      <tr>
+        {{#each users}}
+          <td>
+            {{primary_email}}
+          </td>
+        {{/each}}
+      </tr>
+      <tr>
+        {{#each users}}
+          <td>
+            <input type="number" name="{{primary_email}}" />
+          </td>
+        {{/each}}
+      </tr>
+    </table>
+    <input type="submit" value="Save expense" />
+  </form>
+</template>

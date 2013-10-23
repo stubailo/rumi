@@ -1,0 +1,51 @@
+<template name="user_info">
+  <h2>User Stuff</h2>
+  {{#if currentUser}}
+    {{> user_logged_in}}
+  {{else}}
+    {{> user_registration}}
+    {{> user_login}}
+  {{/if}}
+</template>
+
+<template name="user_logged_in">
+  <div class="user_info">
+    <button id="log-out">Log out</button>
+  </div>
+</template>
+
+<template name="user_registration">
+  <h3>Registration</h3>
+  {{#if error}}
+    {{error.reason}}
+  {{/if}}
+  <form>
+    <div>
+      <input name="email" type="email" placeholder="email" />
+    </div>
+    <div>
+      <input name="password" type="password" />
+    </div>
+    <div>
+      <input type="submit" value="Sign Up" />
+    </div>
+  </form>
+</template>
+
+<template name="user_login">
+  <h3>Login</h3>
+  {{#if error}}
+    {{error.reason}}
+  {{/if}}
+  <form>
+    <div>
+      <input name="email" type="email" placeholder="email" />
+    </div>
+    <div>
+      <input name="password" type="password" />
+    </div>
+    <div>
+      <input type="submit" value="Sign In" />
+    </div>
+  </form>
+</template>
