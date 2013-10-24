@@ -59,6 +59,9 @@
   <table>
     {{#each expenses}}
       <tr>
+        <td>Creator</td>
+        <td>Total Cost</td>
+        <td>Description</td>
         {{#each object portions}}
           {{#with getUser key}}
             <td>
@@ -68,6 +71,9 @@
         {{/each}}
       </tr>
       <tr>
+        <td>{{user_email user_id}}</td>
+        <td>{{cost}}</td>
+        <td>{{description}}</td>
         {{#each object portions}}
           <td>
             {{value}}
@@ -80,11 +86,9 @@
 
     <tr>
       {{#each object totalExpenses}}
-        {{#with getUser key}}
-          <td>
-            {{primary_email}}
-          </td>
-        {{/with}}
+        <td>
+          {{user_email key}}
+        </td>
       {{/each}}
     </tr>
     <tr>

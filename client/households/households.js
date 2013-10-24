@@ -56,16 +56,18 @@ Template.household_expenses.totalExpenses = function() {
   if(this.expenses) {
     this.expenses.forEach(function(expense) {
       var user_id;
-      expense = expense.portions;
-      for(user_id in expense) {
-        if(expense.hasOwnProperty(user_id)) {
+      var portions = expense.portions;
+      for(user_id in portions) {
+        if(portions.hasOwnProperty(user_id)) {
           if(totals[user_id]) {
-            totals[user_id] += expense[user_id];
+            totals[user_id] += portions[user_id];
           } else {
-            totals[user_id] = expense[user_id];
+            totals[user_id] = portions[user_id];
           }
         }
       }
+
+
     });
   }
 
@@ -74,11 +76,10 @@ Template.household_expenses.totalExpenses = function() {
 
 Template.household_add_expense.events = {
   "submit form": function(event, template) {
-    var user_id;
     event.preventDefault();
 
     var formData = Util.serializeForm(template.find("form"));
-
+    formData.user_id = Meteor.user()._id;
     this.addExpense(formData);
   }
 };
