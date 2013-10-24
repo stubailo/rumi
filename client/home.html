@@ -1,3 +1,7 @@
 <template name="home">
-  <a href="{{pathFor 'households'}}">See your households!</a>
+  {{#if currentUser}}
+    <a href="{{pathFor 'households'}}">See your households!</a>
+  {{else}}
+    Please log in!
+  {{/if}}
 </template>

@@ -1,12 +1,11 @@
 function checkSignIn() {
   if (!Meteor.user()) {
-    this.render("home");
-    this.stop();
+    Router.go("home");
   }
 }
 
 // only render the home page if user is not signed in
-Router.before(checkSignIn);
+Router.before(checkSignIn, {except: ["home"]});
 
 Router.configure({
   notFoundTemplate: "not_found",
@@ -42,6 +41,16 @@ Router.map(function () {
       return {
         households: Households.find().fetch()
       };
+    }
+  });
+
+  this.route("household_pay", {
+    path: "/households/:_id/pay",
+    waitOn: function () {
+      return [Meteor.subscribe("households"), Meteor.subscribe("allUsers")];
+    },
+    data: function () {
+      return Households.findOne({_id: this.params._id});
     }
   });
 });

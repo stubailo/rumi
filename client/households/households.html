@@ -59,7 +59,7 @@
   <table>
     {{#each expenses}}
       <tr>
-        {{#each object this}}
+        {{#each object portions}}
           {{#with getUser key}}
             <td>
               {{primary_email}}
@@ -68,7 +68,7 @@
         {{/each}}
       </tr>
       <tr>
-        {{#each object this}}
+        {{#each object portions}}
           <td>
             {{value}}
           </td>
@@ -101,6 +101,8 @@
 <template name="household_add_expense">
   <h3>Add Expense</h3>
   <form>
+    <input type="number" name="cost" placeholder="cost" />
+    <input type="text" name="description" placeholder="description" />
     <table>
       <tr>
         {{#each users}}
@@ -112,7 +114,7 @@
       <tr>
         {{#each users}}
           <td>
-            <input type="number" name="{{_id}}" />
+            <input type="number" name="portions.{{_id}}" />
           </td>
         {{/each}}
       </tr>

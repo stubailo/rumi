@@ -56,6 +56,7 @@ Template.household_expenses.totalExpenses = function() {
   if(this.expenses) {
     this.expenses.forEach(function(expense) {
       var user_id;
+      expense = expense.portions;
       for(user_id in expense) {
         if(expense.hasOwnProperty(user_id)) {
           if(totals[user_id]) {
@@ -77,13 +78,6 @@ Template.household_add_expense.events = {
     event.preventDefault();
 
     var formData = Util.serializeForm(template.find("form"));
-  
-    // parse all inputs as ints
-    for(user_id in formData) {
-      if(formData.hasOwnProperty(user_id)) {
-        formData[user_id] = parseFloat(formData[user_id], 10);
-      }
-    }
 
     this.addExpense(formData);
   }
