@@ -14,3 +14,7 @@ Handlebars.registerHelper("user_email", function(user_id) {
     return user.primary_email();
   }
 });
+
+Handlebars.registerHelper("can", function(action, type, obj) {
+  return Ability.can(action, type, obj);
+});

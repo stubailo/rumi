@@ -4,8 +4,13 @@ function checkSignIn() {
   }
 }
 
+function clearTemp() {
+  Session.set("temp", {});
+} 
+
 // only render the home page if user is not signed in
 Router.before(checkSignIn, {except: ["home"]});
+Router.before(clearTemp);
 
 Router.configure({
   notFoundTemplate: "not_found",

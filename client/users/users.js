@@ -7,7 +7,7 @@ Template.user_logged_in.events({
 });
 
 Template.user_registration.error = function() {
-  return Session.get("registration_error");
+  return TempSession.get("registration_error");
 };
 
 Template.user_registration.events({
@@ -22,16 +22,16 @@ Template.user_registration.events({
       password: password
     }, function (error) {
       if(error) {
-        Session.set("registration_error", error);
+        TempSession.set("registration_error", error);
       } else {
-        Session.set("registration_error", null);
+        TempSession.set("registration_error", null);
       }
     });
   }
 });
 
 Template.user_login.error = function() {
-  return Session.get("login_error");
+  return TempSession.get("login_error");
 };
 
 Template.user_login.events({
@@ -43,9 +43,9 @@ Template.user_login.events({
 
     Meteor.loginWithPassword(email, password, function(error) {
       if(error) {
-        Session.set("login_error", error);
+        TempSession.set("login_error", error);
       } else {
-        Session.set("login_error", null);
+        TempSession.set("login_error", null);
       }
     });
     

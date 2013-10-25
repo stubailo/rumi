@@ -1,0 +1,103 @@
+<template name="household_expense_row_header">
+  <tr>
+    <td>Creator</td>
+    <td>Total Cost</td>
+    <td>Description</td>
+    {{#each object portions}}
+      <td>
+        {{user_email key}}
+      </td>
+    {{/each}}
+    <td>Actions</td>
+  </tr>
+</template>
+
+<template name="household_expense_row">
+  {{> household_expense_row_header}}
+  <tr>
+    <td>{{user_email user_id}}</td>
+    <td>{{cost}}</td>
+    <td>{{description}}</td>
+    {{#each object portions}}
+      <td>
+        {{value}}
+      </td>
+    {{/each}}
+    <td>
+      {{#if can "edit" "expense" this}}
+        <button class="edit">edit</button>
+        <button class="delete">delete</button>
+      {{/if}}
+    </td>
+  </tr>
+</template>
+
+<template name="household_expenses">
+  <h3>Expenses</h3>
+  <table>
+    {{#each expenses}}
+      {{#if editing}}
+        {{> household_expense_edit_row}}
+      {{else}}
+        {{> household_expense_row}}
+      {{/if}}
+    {{/each}}
+
+    <tr><td colspan="100">Total expenses:</td></tr>
+
+    <tr>
+      {{#each object totalExpenses}}
+        <td>
+          {{user_email key}}
+        </td>
+      {{/each}}
+    </tr>
+    <tr>
+      {{#each object totalExpenses}}
+        <td>
+          {{value}}
+        </td>
+      {{/each}}
+    </tr>
+  </table>
+  {{> household_add_expense}}
+</template>
+
+<template name="household_expense_actions">
+</template>
+
+<template name="household_add_expense">
+  <h3>Add Expense</h3>
+  <form>
+    <table>
+      {{#with new_expense}}
+      {{> household_expense_row_header}}
+      {{> household_expense_form_row}}
+      {{/with}}
+    </table>
+    <input type="submit" value="Save expense" />
+  </form>
+</template>
+
+<template name="household_expense_edit_row">
+  {{! this should be merged with the create form... }}
+  {{> household_expense_row_header}}
+  {{> household_expense_form_row}}
+</template>
+
+<template name="household_expense_form_row">
+  <tr>
+    <td>{{user_email user_id}}</td>
+    <td><input type="number" name="cost" placeholder="cost" value="{{cost}}" /></td>
+    <td><input name="description" value="{{description}}" placeholder="description"/></td>
+    {{#each object portions}}
+      <td>
+        <input type="number" name="portions.{{key}}" />
+      </td>
+    {{/each}}
+    <td>
+      <button class="save">Save</button>
+      <button class="cancel">Cancel</button>
+    </td>
+  </tr>
+</template>

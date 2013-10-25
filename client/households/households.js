@@ -14,7 +14,7 @@ Template.new_household.events = {
 };
 
 Template.household_add_user.error = function () {
-  return Session.get("household_add_user_error");
+  return TempSession.get("household_add_user_error");
 };
 
 Template.household_add_user.events = {
@@ -27,7 +27,7 @@ Template.household_add_user.events = {
 
     Meteor.call("addUserToHousehold", email, this._id, function(error) {
       if(error) {
-        Session.set("household_add_user_error", error.reason);
+        TempSession.set("household_add_user_error", error.reason);
       } else {
         $(template.find("input")).val("");
       }
@@ -74,6 +74,21 @@ Template.household_expenses.totalExpenses = function() {
   return totals;
 };
 
+Template.household_expenses.editing = function() {
+  return this.created_at === TempSession.get("household_expense_editing");
+};
+
+Template.household_add_expense.new_expense = function(){
+  var portions = {};
+  this.user_ids.forEach(function(user_id) {
+    portions[user_id] = 0;
+  });
+  return {
+    portions: portions,
+    user_id: Meteor.user()._id
+  };
+};
+
 Template.household_add_expense.events = {
   "submit form": function(event, template) {
     event.preventDefault();
@@ -81,5 +96,36 @@ Template.household_add_expense.events = {
     var formData = Util.serializeForm(template.find("form"));
     formData.user_id = Meteor.user()._id;
     this.addExpense(formData);
+  }
+};
+
+Template.household_expense_edit_row.events = {
+  "submit form": function(event, template) {
+    event.preventDefault();
+
+    var formData = Util.serializeForm(template.find("form"));
+    formData.user_id = Meteor.user()._id;
+    this[".."].addExpense(formData);
+  }
+};
+
+// editing and deleting stuff
+Template.household_expense_row.events = {
+  "click .edit": function(event, template) {
+    TempSession.set("household_expense_editing", this.created_at);
+  },
+
+  "click .delete": function(event, template) {
+    console.log("deleting");
+  }
+};
+
+Template.household_expense_edit_row.events = {
+  "click .cancel": function(event, template) {
+    TempSession.set("household_expense_editing", undefined);
+  },
+
+  "click .save": function(event, template) {
+    console.log(template);
   }
 };

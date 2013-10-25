@@ -16,6 +16,7 @@ _.extend(Household.prototype, {
     // TODO: add check to make sure this expense is allowed
     // TODO: make sure expenses are numbers lol
 
+    obj.created_at = new Date().getTime();
     Households.update({_id: this._id}, {$push: {expenses: obj}}); 
   }
 });
