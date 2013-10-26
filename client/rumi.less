@@ -1,0 +1,60 @@
+/* CSS declarations go here */
+
+// Viewports (usage: @media @var)
+@xs: ~'screen and (max-width: 767px)';
+@sm: ~'screen and (min-width: 768px) and (max-width: 991px)';
+@md: ~'screen and (min-width: 992px) and (max-width: 1199px)';
+@lg: ~'screen and (min-width: 1200px)';
+@not-xs: ~'screen and (min-width: 768px)';
+
+// Globals
+html, body {
+	height: 100%;
+}
+
+// Navbar
+.navbar {
+	.user-info {
+		padding: 7.5px 15px;
+	}
+}
+
+// Landing page
+.hero-landing {
+	max-width: 100%;
+	min-height: 100%;
+ 	margin-top: -50px;
+ 	padding-top: 50px;
+ 	padding-bottom: 50px;
+ 	background: url("/home.png") no-repeat center bottom fixed;
+ 	-webkit-background-size: cover;
+ 	-moz-background-size: cover;
+ 	-o-background-size: cover;
+ 	background-size: cover;
+ 	.tagline {
+		margin-top: 70px;
+		color: #fff;
+	}
+	.user-forms {
+		width: 768px;
+		margin: auto;
+		margin-top: 40px;
+		@media @xs {
+			width: 100%;
+		}
+		.user-form {
+	 		background: #f0f0f0;
+	 		padding: 15px;
+	 		margin: 20px;
+	 		width: 344px;
+	 		float: left;
+	 		@media @xs {
+	 			float: none;
+	 			margin: auto;
+	 		}
+	 		h3 {
+	 			margin-top: 0;
+	 		}
+ 		}
+	}
+}

@@ -8,14 +8,13 @@
 
 	{{#if currentUser}}
 	{{else}}
-	<div id="hero-landing">
-
-<div id="tagline">
-	<h2 class="text-center">Easy cost tracking and splitting with your roommates.</h2>
-	<h4 class="text-center">(We'll do the math.)</h4>
-	</div>
-		<div id="signin">
-			{{> user_info}}  
+	<div class="hero-landing">
+		<div class="tagline">
+			<h2 class="text-center">Easy cost tracking and splitting with your roommates.</h2>
+			<h4 class="text-center">(We'll do the math.)</h4>
+		</div>
+		<div class="user-forms">
+			{{> user_info}}
 		</div>
 	</div>
 	{{/if}}
