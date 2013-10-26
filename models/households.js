@@ -1,4 +1,12 @@
 Household = function (doc) {
+  var defaultPortions = _.object(doc.user_ids.map(function(user_id) {
+    return [user_id, 0];
+  }));
+
+  doc.expenses.forEach(function(expense) {
+    _.defaults(expense.portions, defaultPortions);
+  });
+
   _.extend(this, doc);
 };
 
