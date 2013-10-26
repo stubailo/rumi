@@ -112,20 +112,27 @@ Template.household_expense_edit_row.events = {
 // editing and deleting stuff
 Template.household_expense_row.events = {
   "click .edit": function(event, template) {
+    event.preventDefault();
     TempSession.set("household_expense_editing", this.created_at);
   },
 
   "click .delete": function(event, template) {
+    event.preventDefault();
     console.log("deleting");
   }
 };
 
-Template.household_expense_edit_row.events = {
+Template.household_expenses.events = {
   "click .cancel": function(event, template) {
+    event.preventDefault();
     TempSession.set("household_expense_editing", undefined);
+    console.log(template);
   },
 
-  "click .save": function(event, template) {
-    console.log(template);
+  "submit form": function(event, template) {
+    event.preventDefault();
+    var formData = Util.serializeForm(template.find("form"));
+
+    template.data.updateExpense(formData);
   }
 };

@@ -34,36 +34,35 @@
 
 <template name="household_expenses">
   <h3>Expenses</h3>
-  <table>
-    {{#each expenses}}
-      {{#if editing}}
-        {{> household_expense_edit_row}}
-      {{else}}
-        {{> household_expense_row}}
-      {{/if}}
-    {{/each}}
-
-    <tr><td colspan="100">Total expenses:</td></tr>
-
-    <tr>
-      {{#each object totalExpenses}}
-        <td>
-          {{user_email key}}
-        </td>
+  <form> {{!this form is for editing.  Needs to be out here to get the household scope.}}
+    <table>
+      {{#each expenses}}
+        {{#if editing}}
+          {{> household_expense_edit_row}}
+        {{else}}
+          {{> household_expense_row}}
+        {{/if}}
       {{/each}}
-    </tr>
-    <tr>
-      {{#each object totalExpenses}}
-        <td>
-          {{value}}
-        </td>
-      {{/each}}
-    </tr>
-  </table>
+
+      <tr><td colspan="100">Total expenses:</td></tr>
+
+      <tr>
+        {{#each object totalExpenses}}
+          <td>
+            {{user_email key}}
+          </td>
+        {{/each}}
+      </tr>
+      <tr>
+        {{#each object totalExpenses}}
+          <td>
+            {{value}}
+          </td>
+        {{/each}}
+      </tr>
+    </table>
+  </form>
   {{> household_add_expense}}
-</template>
-
-<template name="household_expense_actions">
 </template>
 
 <template name="household_add_expense">
@@ -81,6 +80,7 @@
 
 <template name="household_expense_edit_row">
   {{! this should be merged with the create form... }}
+  <input class="hidden" type="number" name="created_at" value="{{created_at}}" />
   {{> household_expense_row_header}}
   {{> household_expense_form_row}}
 </template>
@@ -92,7 +92,7 @@
     <td><input name="description" value="{{description}}" placeholder="description"/></td>
     {{#each object portions}}
       <td>
-        <input type="number" name="portions.{{key}}" />
+        <input type="number" name="portions.{{key}}" value="{{value}}" />
       </td>
     {{/each}}
     <td>

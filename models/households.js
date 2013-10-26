@@ -18,6 +18,17 @@ _.extend(Household.prototype, {
 
     obj.created_at = new Date().getTime();
     Households.update({_id: this._id}, {$push: {expenses: obj}}); 
+  },
+
+  updateExpense: function(obj) {
+    var old_expense = _.find(this.expenses, function(expense) {
+      return expense.created_at === obj.created_at;
+    });
+
+    var new_expense = _.extend({}, old_expense, obj);
+    console.log(old_expense, obj, new_expense);
+
+    Meteor.call("updateExpenseInHousehold", this._id, new_expense);
   }
 });
 
