@@ -1,3 +1,11 @@
 <template name="not_found">
-  Resource not found!
+<nav class="navbar navbar-default" role="navigation">
+<a class="navbar-brand" href="{{pathFor 'home'}}">rumi</a>
+  {{#if currentUser}}
+    {{> user_logged_in}}
+    <a class="btn btn-default pull-right" href="{{pathFor 'households'}}">Households</a>
+      {{/if}}
+</nav>
+
+Something is missing!
 </template>

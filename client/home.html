@@ -1,5 +1,14 @@
 <template name="home">
-  {{#if currentUser}}
-    <a href="{{pathFor 'households'}}">HOUSEHOLDS</a>
-  {{/if}}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<a class="btn btn-default" href="{{pathFor 'households'}}">Your Households</a>
+				<hr/>
+				{{> households}}
+			</div>
+			<div class="col-md-10">
+			content
+			</div>
+		</div>
+	</div>
 </template>

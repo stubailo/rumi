@@ -1,6 +1,5 @@
 <template name="user_info">
   {{#if currentUser}}
-    {{> user_logged_in}}
   {{else}}
     {{> user_registration}}
     {{> user_login}}
@@ -9,7 +8,7 @@
 
 <template name="user_logged_in">
   <div class="user_info">
-    <button id="log-out">Log out</button>
+    <button class="btn btn-default pull-right" id="log-out">Log out</button>
   </div>
 </template>
 
@@ -26,7 +25,7 @@
       <input name="password" type="password" />
     </div>
     <div>
-      <input type="submit" value="Sign Up" />
+      <input type="submit" value="Sign Up" class="btn btn-success"/>
     </div>
   </form>
 </template>
@@ -44,7 +43,7 @@
       <input name="password" type="password" />
     </div>
     <div>
-      <input type="submit" value="Login" />
+      <input type="submit" value="Login" class="btn btn-success"/>
     </div>
   </form>
 </template>

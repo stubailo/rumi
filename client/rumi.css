@@ -2,3 +2,15 @@
 .hidden {
   display: none;
 }
+
+#hero-landing {
+	max-width:100%;
+ 	height:600px;
+ 	margin-top:-50px;
+ 	padding-top:60px;
+ 	background: url("/home.png") no-repeat center bottom fixed;
+ 	-webkit-background-size: cover;
+ 	-moz-background-size: cover;
+ 	-o-background-size: cover;
+ 	background-size: cover;
+}

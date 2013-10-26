@@ -1,31 +1,29 @@
-<template name="household_mini">
-  <div>  
-    <a href="{{pathFor 'household'}}">Household: {{name}}</a>
-  </div>
-</template>
-
 <template name="new_household">
-  <h2>New Household</h2>
-  <form>
-    <input name="name" placeholder="name" />
-    <input type="submit" value="Create Household" />
-  </form>
-  <a href="{{pathFor 'households'}}">See all households</a>
+<div class="container">
+    <form role="form" class="col-md-4">
+      <div class="form-group">
+        <label for="name">New Household Name</label>
+        <input name="name" class="form-control" placeholder="ex: 554 W 50th St.">
+      </div>
+      <!--   <input name="name" placeholder="name" /> -->
+      <input class="btn btn-success" type="submit" value="Create Household" />
+    </form>
+</div>
 </template>
 
 <template name="household">
-  <a href="{{pathFor 'households'}}">See all households</a>
-  <h2>Household "{{name}}"</h2>
+<div class="container">
+  <h2>{{name}}</h2>
 
   {{> household_users}}
   {{> household_expenses}}
+  </div>
 </template>
 
 <template name="household_users">
-  <h3>Users</h3>
   <ul>
     {{#each users}}
-      <li>{{primary_email}}</li>
+    <li>{{primary_email}}</li>
     {{/each}}
   </ul>
 
@@ -34,23 +32,28 @@
 </template>
 
 <template name="households">
-  <h3>Listing all households</h3>
-  {{#each households}}
+    {{#each households}}
     {{> household_mini}}
-  {{/each}}
-  <a href="{{pathFor 'new_household'}}">Create a new household</a>
+    {{/each}}
+    <a class="btn btn-success btn-sm" href="{{pathFor 'new_household'}}">New Household</a>
+</template>
+
+<template name="household_mini">
+  <div>  
+    <a href="{{pathFor 'household'}}">Household: {{name}}</a>
+  </div>
 </template>
 
 <template name="household_add_user">
   {{error}}
-  <p>Add user:</p>
+  <p>Add User</p>
   <form>
     <input type="email" name="email" placeholder="email" />
-    <input type="submit" value="Add" />
+    <input class="btn btn-success btn-sm" type="submit" value="Add" />
   </form>
 </template>
 
 <template name="household_leave">
-  <button>Leave household</button>
+  <button class="btn btn-danger btn-md">Leave household</button>
 </template>
 

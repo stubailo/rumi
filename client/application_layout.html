@@ -1,8 +1,13 @@
 <template name="application_layout">
 <nav class="navbar navbar-default" role="navigation">
-<a class="navbar-brand" href="#">rumi</a>
+<a class="navbar-brand" href="{{pathFor 'home'}}">rumi</a>
+  {{#if currentUser}}
+    {{> user_logged_in}}
+      {{/if}}
 </nav>
+
+<!--   <div id="hero-landing"> -->
   {{> user_info}}  
-  <hr />
+<!--   </div> -->
   {{yield}}
 </template>
