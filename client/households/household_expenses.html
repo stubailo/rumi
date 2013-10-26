@@ -24,7 +24,7 @@
       </td>
     {{/each}}
     <td>
-      {{#if can "edit" "expense" this}}
+      {{#if can "update" "expense" this}}
         <button class="edit btn btn-sm btn-warning">Edit</button>
         <button class="delete btn btn-sm btn-danger">Delete</button>
       {{/if}}
@@ -70,6 +70,9 @@
 <template name="household_add_expense">
   <h3>Add Expense</h3>
   <form>
+    {{#if error}}
+      {{error}}
+    {{/if}}
     <table>
       {{#with new_expense}}
       {{> household_expense_row_header}}

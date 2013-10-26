@@ -4,6 +4,28 @@ Household = function (doc) {
 
 Household.attributes = ["_id", "name", "user_ids"];
 
+Household.validateExpense = function (household_id, expense) {
+  var household = Households.findOne({_id: household_id});
+  if(!Ability.can("update", "household", household)) {
+    throw new Meteor.Error(0, "You don't have permission to update the household.");
+  }
+  
+  if(expense.user_id !== Meteor.user()._id) {
+    throw new Meteor.Error(0, "Expenses can only be added by the person that paid for them.");
+  }
+  
+  // each expense needs to balance out to 0
+  var portionSum = _.reduce(_.values(expense.portions), function(sum, value) {
+    return sum + value; 
+  }, 0);
+  
+  if(expense.cost - portionSum !== 0) {
+    throw new Meteor.Error(0, "Each expense must have a balance of 0.");
+  }
+
+  return true;
+};
+
 _.extend(Household.prototype, {
   // Household methods go here
 
@@ -13,12 +35,13 @@ _.extend(Household.prototype, {
 
   // the argument is a dictionary of user_ids to numbers
   addExpense: function(obj) {
-    // TODO: add check to make sure this expense is allowed
-    // TODO: make sure expenses are numbers lol
-
     obj.created_at = new Date().getTime();
     obj.household_id = this._id;
-    Households.update({_id: this._id}, {$push: {expenses: obj}}); 
+    Meteor.call("addExpenseToHousehold", this._id, obj, function(error) {
+      if(error) {
+        TempSession.set("household_expense_add_error", error.reason);
+      }
+    });
   },
 
   updateExpense: function(obj) {
@@ -29,7 +52,11 @@ _.extend(Household.prototype, {
     var new_expense = _.extend({}, old_expense, obj);
     console.log(old_expense, obj, new_expense);
 
-    Meteor.call("updateExpenseInHousehold", this._id, new_expense);
+    Meteor.call("updateExpenseInHousehold", this._id, new_expense, function(error) {
+      if(error) {
+        TempSession.set("household_expense_update_error", error.reason);
+      }
+    });
   },
 
   // for each person, calculates the difference between what they have spent

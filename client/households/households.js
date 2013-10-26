@@ -89,6 +89,10 @@ Template.household_add_expense.new_expense = function(){
   };
 };
 
+Template.household_add_expense.error = function () {
+  return TempSession.get("household_expense_add_error");
+};
+
 Template.household_add_expense.events = {
   "submit form": function(event, template) {
     event.preventDefault();
