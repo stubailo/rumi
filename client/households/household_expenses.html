@@ -86,6 +86,9 @@
 <template name="household_expense_edit_row">
   {{! this should be merged with the create form... }}
   <input class="hidden" type="number" name="created_at" value="{{created_at}}" />
+  {{#if error}}
+    <tr><td colspan="100">{{error}}</td></tr>
+  {{/if}}
   {{> household_expense_row_header}}
   {{> household_expense_form_row}}
 </template>

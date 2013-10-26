@@ -103,14 +103,8 @@ Template.household_add_expense.events = {
   }
 };
 
-Template.household_expense_edit_row.events = {
-  "submit form": function(event, template) {
-    event.preventDefault();
-
-    var formData = Util.serializeForm(template.find("form"));
-    formData.user_id = Meteor.user()._id;
-    this[".."].addExpense(formData);
-  }
+Template.household_expense_edit_row.error = function (){
+  return TempSession.get("household_expense_update_error");
 };
 
 // editing and deleting stuff
@@ -135,6 +129,7 @@ Template.household_expenses.events = {
   "submit form": function(event, template) {
     event.preventDefault();
     var formData = Util.serializeForm(template.find("form"));
+    TempSession.set("household_expense_editing", undefined);
     template.data.updateExpense(formData);
   }
 };
