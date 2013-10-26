@@ -1,5 +1,4 @@
 <template name="user_info">
-  <h2>User Stuff</h2>
   {{#if currentUser}}
     {{> user_logged_in}}
   {{else}}
@@ -15,7 +14,7 @@
 </template>
 
 <template name="user_registration">
-  <h3>Registration</h3>
+  <h3>Sign Up</h3>
   {{#if error}}
     {{error.reason}}
   {{/if}}
@@ -45,7 +44,7 @@
       <input name="password" type="password" />
     </div>
     <div>
-      <input type="submit" value="Sign In" />
+      <input type="submit" value="Login" />
     </div>
   </form>
 </template>
