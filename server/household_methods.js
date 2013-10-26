@@ -11,7 +11,9 @@ Meteor.methods({
     Households.update({_id: household_id}, {$pull: {user_ids: this.userId}});
   },
   updateExpenseInHousehold: function (household_id, expense) {
-    console.log(expense);
     Households.update({_id: household_id, "expenses.created_at": expense.created_at}, {$set: {"expenses.$": expense}});
+  },
+  removeExpenseFromHousehold: function (household_id, expense) {
+    Households.update({_id: household_id, "expenses.created_at": expense.created_at}, {$pop: {"expenses": 1}});
   }
 });

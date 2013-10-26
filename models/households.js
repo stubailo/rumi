@@ -17,6 +17,7 @@ _.extend(Household.prototype, {
     // TODO: make sure expenses are numbers lol
 
     obj.created_at = new Date().getTime();
+    obj.household_id = this._id;
     Households.update({_id: this._id}, {$push: {expenses: obj}}); 
   },
 

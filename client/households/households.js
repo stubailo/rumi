@@ -81,7 +81,7 @@ Template.household_expenses.editing = function() {
 Template.household_add_expense.new_expense = function(){
   var portions = {};
   this.user_ids.forEach(function(user_id) {
-    portions[user_id] = 0;
+    portions[user_id] = null;
   });
   return {
     portions: portions,
@@ -118,7 +118,7 @@ Template.household_expense_row.events = {
 
   "click .delete": function(event, template) {
     event.preventDefault();
-    console.log("deleting");
+    Meteor.call("removeExpenseFromHousehold", this.household_id, this);
   }
 };
 
@@ -126,13 +126,11 @@ Template.household_expenses.events = {
   "click .cancel": function(event, template) {
     event.preventDefault();
     TempSession.set("household_expense_editing", undefined);
-    console.log(template);
   },
 
   "submit form": function(event, template) {
     event.preventDefault();
     var formData = Util.serializeForm(template.find("form"));
-
     template.data.updateExpense(formData);
   }
 };
