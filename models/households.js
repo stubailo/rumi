@@ -30,6 +30,109 @@ _.extend(Household.prototype, {
     console.log(old_expense, obj, new_expense);
 
     Meteor.call("updateExpenseInHousehold", this._id, new_expense);
+  },
+
+  // for each person, calculates the difference between what they have spent
+  // and what they owe
+  getBalances: function() {
+    var users = {};
+
+    function addToUser(user_id, value) {
+      if(users[user_id]) {
+        users[user_id] += value;
+      } else {
+        users[user_id] = value;
+      }
+    }
+
+    this.expenses.forEach(function(expense) {
+      // add amount they have paid
+      addToUser(expense.user_id, expense.cost);
+
+      // for each portion of the cost
+      var user_id;
+      for(user_id in expense.portions) {
+        if(expense.portions.hasOwnProperty(user_id)) {
+          // subtract what each person owes
+          addToUser(user_id, -expense.portions[user_id]);
+        }
+      }
+    });
+
+    return users;
+  },
+
+  checkBalances: function () {
+    var balances = this.getBalances();
+
+    // verify they all add up to 0
+    var sum = _.reduce(_.values(balances), function(sum, value) {
+      return sum + value;
+    }, 0);
+
+    if(sum === 0) {
+      return true;
+    }
+
+    return false;
+  },
+
+  // get the set of payments that would resolve all balances
+  getPayments: function() {
+    if(!this.checkBalances()) {
+      throw new Meteor.Error(0, "Balances for household don't match up.");
+    }
+
+    // converts balances into list of user_id, balance objects
+    var pairs = _.map(_.pairs(this.getBalances()), function(pair) {
+      return {user_id: pair[0], balance: pair[1]};
+    });
+
+    // people who are owed money
+    var lenders = _.filter(pairs, function(pair) {
+      return pair.balance > 0;
+    });
+    
+    // people who owe money
+    var borrowers = _.filter(pairs, function(pair) {
+      return pair.balance < 0;
+    });
+
+    // people with a balance of exactly 0 don't need to pay or get paid.  Lucky them!
+    
+    var payments = [];
+
+    borrowers.forEach(function(borrower) {
+      while(borrower.balance < 0) {
+        // get one lender
+        var lender = _.last(lenders);
+
+        if(lender.balance + borrower.balance <= 0) {
+          // borrower owes enough to completely pay this lender
+          payments.push({
+            source: borrower.user_id,
+            target: lender.user_id,
+            amount: lender.balance
+          });
+          
+          borrower.balance += lender.balance;
+          lender.balance = 0;
+          lenders.pop();
+        } else {
+          // borrower can partially pay this lender
+          payments.push({
+            source: borrower.user_id,
+            target: lender.user_id,
+            amount: -borrower.balance
+          });
+
+          lender.balance += borrower.balance;
+          borrower.balance = 0;
+        }
+      }
+    });
+
+    return payments;
   }
 });
 
