@@ -17,6 +17,8 @@ Meteor.methods({
   },
   updateExpenseInHousehold: function (household_id, expense) {
     Household.validateExpense(household_id, expense);
+    console.log("should really update..");
+    console.log(expense);
     Households.update({_id: household_id, "expenses.created_at": expense.created_at}, {$set: {"expenses.$": expense}});
   },
   removeExpenseFromHousehold: function (household_id, expense) {

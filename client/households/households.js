@@ -50,28 +50,8 @@ Template.household_expenses.getUser = function(user_id) {
   return Meteor.users.findOne({_id: user_id});
 };
 
-Template.household_expenses.totalExpenses = function() {
-  var totals = {};
-
-  if(this.expenses) {
-    this.expenses.forEach(function(expense) {
-      var user_id;
-      var portions = expense.portions;
-      for(user_id in portions) {
-        if(portions.hasOwnProperty(user_id)) {
-          if(totals[user_id]) {
-            totals[user_id] += portions[user_id];
-          } else {
-            totals[user_id] = portions[user_id];
-          }
-        }
-      }
-
-
-    });
-  }
-
-  return totals;
+Template.household_expenses.balances = function() {
+  return this.getBalances();
 };
 
 Template.household_expenses.editing = function() {
@@ -126,10 +106,13 @@ Template.household_expenses.events = {
     TempSession.set("household_expense_editing", undefined);
   },
 
-  "submit form": function(event, template) {
+  "submit form.edit-form": function(event, template) {
     event.preventDefault();
-    var formData = Util.serializeForm(template.find("form"));
-    TempSession.set("household_expense_editing", undefined);
-    template.data.updateExpense(formData);
+    var formData = Util.serializeForm(template.find("form.edit-form"));
+    template.data.updateExpense(formData, function(error) {
+      if(error) {
+        TempSession.set("household_expense_update_error", error.reason);
+      }
+    });
   }
 };

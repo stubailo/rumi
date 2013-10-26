@@ -37,34 +37,32 @@
 
   <hr/>
 
-  <form> {{!this form is for editing.  Needs to be out here to get the household scope.}}
-    <table class="table table-striped table-bordered table-condensed">
-      {{#each expenses}}
-        {{#if editing}}
-          {{> household_expense_edit_row}}
-        {{else}}
-          {{> household_expense_row}}
-        {{/if}}
+  <table class="table table-striped table-bordered table-condensed">
+    {{#each expenses}}
+      {{#if editing}}
+        {{> household_expense_edit_row}}
+      {{else}}
+        {{> household_expense_row}}
+      {{/if}}
+    {{/each}}
+
+    <tr><td colspan="100">Balances</td></tr>
+
+    <tr>
+      {{#each object balances}}
+        <td>
+          {{user_email key}}
+        </td>
       {{/each}}
-
-      <tr><td colspan="100">Total expenses:</td></tr>
-
-      <tr>
-        {{#each object totalExpenses}}
-          <td>
-            {{user_email key}}
-          </td>
-        {{/each}}
-      </tr>
-      <tr>
-        {{#each object totalExpenses}}
-          <td>
-            {{value}}
-          </td>
-        {{/each}}
-      </tr>
-    </table>
-  </form>
+    </tr>
+    <tr>
+      {{#each object balances}}
+        <td>
+          {{value}}
+        </td>
+      {{/each}}
+    </tr>
+  </table>
 </template>
 
 <template name="household_add_expense">
@@ -84,18 +82,19 @@
 </template>
 
 <template name="household_expense_edit_row">
-  {{! this should be merged with the create form... }}
-  <input class="hidden" type="number" name="created_at" value="{{created_at}}" />
-  {{#if error}}
-    <tr><td colspan="100">{{error}}</td></tr>
-  {{/if}}
-  {{> household_expense_row_header}}
-  {{> household_expense_form_row}}
+  <form class="edit-form">
+    <input class="hidden" type="number" name="created_at" value="{{created_at}}" />
+    {{#if error}}
+      <tr><td colspan="100">{{error}}</td></tr>
+    {{/if}}
+    {{> household_expense_row_header}}
+    {{> household_expense_form_row}}
+  </form>
 </template>
 
 <template name="household_expense_form_row">
   <tr>
-    <td>{{user_email user_id}}</td>
+    <td>{{user_email user_id}}<input type="hidden" name="user_id" value="{{user_id}}" /></td>
     <td><input type="number" name="cost" placeholder="0.00" value="{{cost}}" /></td>
     <td><input name="description" value="{{description}}" placeholder="No description"/></td>
     {{#each object portions}}

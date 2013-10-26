@@ -52,19 +52,13 @@ _.extend(Household.prototype, {
     });
   },
 
-  updateExpense: function(obj) {
+  updateExpense: function(obj, callback) {
     var old_expense = _.find(this.expenses, function(expense) {
       return expense.created_at === obj.created_at;
     });
 
     var new_expense = _.extend({}, old_expense, obj);
-    console.log(old_expense, obj, new_expense);
-
-    Meteor.call("updateExpenseInHousehold", this._id, new_expense, function(error) {
-      if(error) {
-        TempSession.set("household_expense_update_error", error.reason);
-      }
-    });
+    Meteor.call("updateExpenseInHousehold", this._id, new_expense, callback);
   },
 
   // for each person, calculates the difference between what they have spent
