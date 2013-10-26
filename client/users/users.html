@@ -1,7 +1,9 @@
 <template name="user_info">
   {{#if currentUser}}
   {{else}}
+  <!-- need to separate these with javascript magic -->
     {{> user_registration}}
+    <hr/>
     {{> user_login}}
   {{/if}}
 </template>
@@ -17,15 +19,15 @@
   {{#if error}}
     {{error.reason}}
   {{/if}}
-  <form>
-    <div>
-      <input name="email" type="email" placeholder="email" />
+  <form role="form">
+    <div class="form-group">
+      <input name="email" class="form-control" type="email" placeholder="email" />
     </div>
-    <div>
-      <input name="password" type="password" />
+    <div class="form-group">
+      <input name="password" class="form-control" type="password" placeholder="password"/>
     </div>
-    <div>
-      <input type="submit" value="Sign Up" class="btn btn-success"/>
+    <div class="form-group">
+      <input type="submit" class="form-control" value="Sign Up" class="btn btn-success"/>
     </div>
   </form>
 </template>
@@ -35,15 +37,15 @@
   {{#if error}}
     {{error.reason}}
   {{/if}}
-  <form>
-    <div>
-      <input name="email" type="email" placeholder="email" />
+  <form role="form">
+    <div class="form-group">
+      <input name="email" class="form-control" type="email" placeholder="email" />
     </div>
-    <div>
-      <input name="password" type="password" />
+       <div class="form-group">
+      <input name="password" class="form-control" type="password" placeholder="password"//>
     </div>
-    <div>
-      <input type="submit" value="Login" class="btn btn-success"/>
+     <div class="form-group">
+      <input type="submit" class="form-control" value="Login" class="btn btn-success"/>
     </div>
   </form>
 </template>

@@ -1,4 +1,5 @@
 <template name="home">
+ {{#if currentUser}}
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2">
@@ -7,8 +8,9 @@
 				{{> households}}
 			</div>
 			<div class="col-md-10">
-			content
+			should link in household_expenses
 			</div>
 		</div>
 	</div>
+{{/if}}
 </template>
