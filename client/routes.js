@@ -1,6 +1,7 @@
 function checkSignIn() {
   if (!Meteor.user()) {
-    Router.go("home");
+    this.render("home");
+    this.stop();
   }
 }
 
