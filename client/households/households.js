@@ -13,6 +13,19 @@ Template.new_household.events = {
   }
 };
 
+Template.household_add_transaction.add_payment = function () {
+  return PageSession.get("addTransactionFormState") === "payment";
+};
+
+Template.household_add_transaction.events = {
+  "click a.expense-tab": function (event, template) {
+    PageSession.set("addTransactionFormState", "expense");
+  },
+  "click a.payment-tab": function (event, template) {
+    PageSession.set("addTransactionFormState", "payment");
+  }
+};
+
 Template.household_add_user.error = function () {
   return TempSession.get("household_add_user_error");
 };
@@ -67,6 +80,25 @@ Template.household_add_expense.new_expense = function(){
     portions: portions,
     user_id: Meteor.user()._id
   };
+};
+
+Template.household_add_payment.events = {
+  "submit form": function(event, template) {
+    event.preventDefault();
+    console.log("what");
+
+    var formData = Util.serializeForm(template.find("form"));
+    console.log(formData);
+
+    var expense = {};
+    expense.user_id = Meteor.user()._id;
+    expense.cost = -formData.amount;
+    expense.portions = {};
+    expense.portions[formData.to] = -formData.amount;
+
+    console.log(expense);
+    this.addExpense(expense);
+  }
 };
 
 Template.household_add_expense.error = function () {

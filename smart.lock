@@ -3,7 +3,8 @@
   "dependencies": {
     "basePackages": {
       "iron-router": {},
-      "bootstrap-3": {}
+      "bootstrap-3": {},
+      "reactive-extra": {}
     },
     "packages": {
       "iron-router": {
@@ -15,6 +16,11 @@
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
         "tag": "v0.3.5",
         "commit": "47996f67f3987c9f82117394effcbe1586a4fe29"
+      },
+      "reactive-extra": {
+        "git": "https://github.com/boekkooi/reactive-extra.git",
+        "tag": "v0.0.6",
+        "commit": "fe8d2f8e27c501be6533b419c3a00aae884b838b"
       }
     }
   }

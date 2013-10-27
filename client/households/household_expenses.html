@@ -32,9 +32,24 @@
   </tr>
 </template>
 
-<template name="household_expenses">
-  {{> household_add_expense}}
+<template name="household_add_transaction">
+  {{#if add_payment}}
+    <ul class="nav nav-tabs">
+      <li><a href="#" class="expense-tab">Expense</a></li>
+      <li class="active"><a href="#" class="active payment-tab">Payment</a></li>
+    </ul>
+    {{> household_add_payment}}
+  {{else}}
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#" class="expense-tab">Expense</a></li>
+      <li><a href="#" class="payment-tab">Payment</a></li>
+    </ul>
+    {{> household_add_expense}}
+  {{/if}}
+</template>
 
+<template name="household_expenses">
+  {{> household_add_transaction}}
   <hr/>
 
   <table class="table table-striped table-bordered table-condensed">
@@ -104,8 +119,29 @@
     {{/each}}
     <td>
       <button class="save btn btn-sm btn-success">Save</button>
-      <!-- @Sashko: What does Cancel do? -->
-     <!--  <button class="cancel">Cancel</button> -->
+      {{#if created_at}} {{! this is an edit form}}
+      <button class="cancel btn btn-sm btn-default">Cancel</button>
+      {{/if}}
     </td>
   </tr>
+</template>
+
+<template name="household_add_payment">
+  <form>
+    From: {{user_email currentUser._id}}
+    <input type="hidden" name="user_id" value="{{currentUser._id}}" />
+    To:
+    <select name="to">
+      {{#each user_ids}}
+      <option value="{{this}}">{{user_email this}}</option>
+      {{/each}}
+    </select>
+
+    <input type="number" name="amount" placeholder="amount"/>
+    <input type="submit" value="Save" />
+  </form>
+</template>
+
+<template name="household_payment_form_row">
+  
 </template>
