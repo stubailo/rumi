@@ -1,5 +1,5 @@
 <template name="new_household">
-<div class="container">
+  <div class="container">
     <form role="form" class="col-md-4">
       <div class="form-group">
         <label for="name">New Household Name</label>
@@ -8,15 +8,15 @@
       <!--   <input name="name" placeholder="name" /> -->
       <input class="btn btn-success" type="submit" value="Create Household" />
     </form>
-</div>
+  </div>
 </template>
 
 <template name="household">
-<div class="container">
-  <h2>{{name}}</h2>
-
-  {{> household_users}}
-  {{> household_expenses}}
+  <div class="container">
+    <h2>{{name}}</h2>
+    {{> household_users}}
+    <hr/>
+    {{> household_expenses}}
   </div>
 </template>
 
@@ -32,10 +32,10 @@
 </template>
 
 <template name="households">
-    {{#each households}}
-    {{> household_mini}}
-    {{/each}}
-    <a class="btn btn-success btn-sm" href="{{pathFor 'new_household'}}">New Household</a>
+  {{#each households}}
+  {{> household_mini}}
+  {{/each}}
+  <a class="btn btn-success btn-sm" href="{{pathFor 'new_household'}}">New Household</a>
 </template>
 
 <template name="household_mini">
@@ -46,13 +46,15 @@
 
 <template name="household_add_user">
   {{error}}
-  <p>Add User</p>
-  <form>
-    <input type="email" name="email" placeholder="email" />
-    <input class="btn btn-success btn-sm" type="submit" value="Add" />
-  </form>
+  <form role="form" class="form-inline">
+      <div class="form-group">
+        <label for="email">Add User</label>
+        <input name="email" type="email" class="form-control" placeholder="Email">
+      </div>
+      <input class="btn btn-success btn-sm" type="submit" value="Add" />
+    </form>
 </template>
 
 <template name="household_leave">
-  <button class="btn btn-danger btn-md">Leave household</button>
+<!--   <button class="btn btn-danger btn-md">Leave household</button> -->
 </template>
