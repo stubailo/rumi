@@ -38,6 +38,14 @@ Household.validateExpense = function (household_id, expense) {
   return true;
 };
 
+Household.validateDeleteExpense = function (household_id, expense) {
+  if(expense.user_id !== Meteor.user()._id) {
+    throw new Meteor.Error(0, "Expenses can only be deleted by the person that paid for them.");
+  }
+
+  return true;
+};
+
 _.extend(Household.prototype, {
   // Household methods go here
 
