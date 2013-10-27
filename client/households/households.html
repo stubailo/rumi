@@ -1,23 +1,19 @@
 <template name="new_household">
-  <div class="container">
-    <form role="form" class="col-md-4">
-      <div class="form-group">
-        <label for="name">New Household Name</label>
-        <input name="name" class="form-control" placeholder="ex: 554 W 50th St.">
-      </div>
-      <!--   <input name="name" placeholder="name" /> -->
-      <input class="btn btn-success" type="submit" value="Create Household" />
-    </form>
-  </div>
+  <form role="form" class="col-md-4">
+    <div class="form-group">
+      <label for="name">New Household Name</label>
+      <input name="name" class="form-control" placeholder="ex: 554 W 50th St.">
+    </div>
+    <!--   <input name="name" placeholder="name" /> -->
+    <input class="btn btn-success" type="submit" value="Create Household" />
+  </form>
 </template>
 
 <template name="household">
-  <div class="container">
-    <h2>{{name}}</h2>
-    {{> household_users}}
-    <hr/>
-    {{> transactions}}
-  </div>
+  <h2>{{name}}</h2>
+  {{> household_users}}
+  <hr/>
+  {{> transactions}}
 </template>
 
 <template name="household_users">

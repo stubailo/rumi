@@ -1,9 +1,11 @@
 <template name="application_layout">
 	<nav class="navbar navbar-default" role="navigation">
-		<a class="navbar-brand" href="{{pathFor 'home'}}">rumi</a>
-		{{#if currentUser}}
-		  {{> user_logged_in}}
-		{{/if}}
+    <div class="container">
+      <a class="navbar-brand" href="{{pathFor 'home'}}">rumi</a>
+      {{#if currentUser}}
+        {{> user_logged_in}}
+      {{/if}}
+    </div>
 	</nav>
 
 	{{#if currentUser}}
@@ -19,5 +21,7 @@
 	</div>
 	{{/if}}
 
-	{{yield}}
+  <div class="container">
+    {{yield}}
+  </div>
 </template>
