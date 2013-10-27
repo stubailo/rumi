@@ -21,6 +21,7 @@
 </template>
 
 <template name="household_users">
+<div class="household-users">
   <ul>
     {{#each users}}
     <li>{{primary_email}}</li>
@@ -29,6 +30,7 @@
 
   {{> household_add_user}}
   {{> household_leave}}
+  </div>
 </template>
 
 <template name="households">
@@ -48,10 +50,12 @@
   {{error}}
   <form role="form" class="form-inline">
       <div class="form-group">
-        <label for="email">Add User</label>
+  <!--       <label for="email">Add User</label> -->
         <input name="email" type="email" class="form-control" placeholder="Email">
       </div>
-      <input class="btn btn-success btn-sm" type="submit" value="Add" />
+      <div class="form-group">
+      <input class="btn btn-success" type="submit" value="Add" />
+      </div>
     </form>
 </template>
 

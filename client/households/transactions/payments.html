@@ -23,41 +23,45 @@
 </template>
 
 <template name="household_add_payment">
-  <form>
+  <form role="form" class="form-inline">
     From: {{user_email currentUser._id}}
+    <br/>
     To:
-    <select name="to">
-      {{#each user_ids}}
-      <option value="{{this}}">{{user_email this}}</option>
-      {{/each}}
-    </select>
-
-    <input type="number" name="amount" placeholder="amount"/>
-    <input type="submit" value="Save" />
+    <div class="form-group">
+      <select name="to" class="form-control">
+        {{#each user_ids}}
+        <option value="{{this}}">{{user_email this}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="form-group">
+      <input type="number" name="amount" placeholder="0.00" class="form-control" />
+    </div>
+    <input type="submit" value="Save" class="btn btn-success" />
   </form>
 </template>
 
 <template name="household_payment_form_row">
   <form>
     {{#if created_at}}
-      <input class="hidden" name="created_at" value="{{created_at}}" />
+    <input class="hidden" name="created_at" value="{{created_at}}" />
     {{/if}}
     From: {{user_email user_id}}
     To:
-    <select name="to">
+    <select name="to" class="form-control">
       {{#each user_ids}}
-        {{#if selected ..}}
-          <option value="{{this}}" selected>{{user_email ..}}</option>
-        {{else}}
-          <option value="{{this}}">{{user_email ..}}</option>
-        {{/if}}
+      {{#if selected ..}}
+      <option value="{{this}}" selected>{{user_email ..}}</option>
+      {{else}}
+      <option value="{{this}}">{{user_email ..}}</option>
+      {{/if}}
       {{/each}}
     </select>
 
-    <input type="number" name="amount" placeholder="amount" value="{{amount}}"/>
-    <input type="submit" value="Save" />
+    <input type="number" name="amount" placeholder="amount" value="{{amount}}" class="form-control" />
+    <input type="submit" value="Save" class="form-control btn btn-success" />
     {{#if created_at}}
-      <a href="#" class="cancel btn btn-default">Cancel</a>
+    <a href="#" class="cancel btn btn-default">Cancel</a>
     {{/if}}
   </form>
 </template>
