@@ -1,15 +1,30 @@
 <template name="user_info">
   {{#if currentUser}}
   {{else}}
-  <!-- need to separate these with javascript magic -->
-    {{> user_registration}}
-    {{> user_login}}
+  <!-- need to toggle these -->
+  {{> user_registration}}
+  {{> user_login}}
   {{/if}}
 </template>
 
 <template name="user_logged_in">
   <div class="user-info navbar-right">
+
     {{user_email currentUser._id}}
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Households <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Household one</a></li>
+        <li><a href="#">Household two</a></li>
+        <li><a href="#">Household three</a></li>
+        <li class="divider"></li>
+        <li><a class="btn btn-success btn-sm" href="{{pathFor 'new_household'}}">New Household</a></li>
+      </ul>
+    </div>
+
     <button class="btn btn-default" id="log-out">Log out</button>
   </div>
 </template>
@@ -18,7 +33,7 @@
   <div class="user-form user-registration">
     <h3>Sign Up</h3>
     {{#if error}}
-      {{error.reason}}
+    {{error.reason}}
     {{/if}}
     <form role="form">
       <div class="form-group">
@@ -38,16 +53,16 @@
   <div class="user-form user-login">
     <h3>Login</h3>
     {{#if error}}
-      {{error.reason}}
+    {{error.reason}}
     {{/if}}
     <form role="form">
       <div class="form-group">
         <input name="email" class="form-control" type="email" placeholder="email" />
       </div>
-         <div class="form-group">
+      <div class="form-group">
         <input name="password" class="form-control" type="password" placeholder="password"//>
       </div>
-       <div class="form-group">
+      <div class="form-group">
         <input type="submit" class="form-control" value="Login" class="btn btn-success"/>
       </div>
     </form>
