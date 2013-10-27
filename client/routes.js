@@ -7,7 +7,7 @@ function checkSignIn() {
 
 function clearTemp() {
   Session.set("temp", {});
-} 
+}
 
 // only render the home page if user is not signed in
 Router.before(checkSignIn, {except: ["home"]});
@@ -15,7 +15,10 @@ Router.before(clearTemp);
 
 Router.configure({
   notFoundTemplate: "not_found",
-  layoutTemplate: "application_layout"
+  layoutTemplate: "application_layout",
+  waitOn: function () {
+    return [Meteor.subscribe("households"), Meteor.subscribe("allUsers")];
+  }
 });
 
 Router.map(function () {
@@ -30,9 +33,6 @@ Router.map(function () {
   
   this.route("household", {
     path: "/households/:_id",
-    waitOn: function () {
-      return [Meteor.subscribe("households"), Meteor.subscribe("allUsers")];
-    },
     data: function () {
       var household = Households.findOne({_id: this.params._id});
       PageSession.set("household", household);
@@ -41,14 +41,6 @@ Router.map(function () {
   });
   
   this.route("households", {
-    path: "/households",
-    waitOn: function () {
-      return Meteor.subscribe("households");
-    },
-    data: function () {
-      return {
-        households: Households.find().fetch()
-      };
-    }
+    path: "/households"
   });
 });

@@ -10,18 +10,20 @@
 <template name="user_logged_in">
   <div class="user-info navbar-right">
 
-    {{user_email currentUser._id}}
+    <div class="logged-in">
+      {{user_email currentUser._id}}
+    </div>
 
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        Households <span class="caret"></span>
+        My Households <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu">
-        <li><a href="#">Household one</a></li>
-        <li><a href="#">Household two</a></li>
-        <li><a href="#">Household three</a></li>
+        {{#each currentUser.households}}
+        <li><a href="{{pathFor 'household'}}">{{name}}</a></li>
+        {{/each}}
         <li class="divider"></li>
-        <li><a class="btn btn-success btn-sm" href="{{pathFor 'new_household'}}">New Household</a></li>
+        <li><a href="{{pathFor 'new_household'}}">New Household...</a></li>
       </ul>
     </div>
 
