@@ -68,6 +68,10 @@ _.extend(Household.prototype, {
   // for each person, calculates the difference between what they have spent
   // and what they owe
   getBalances: function() {
+    if(!this.expenses) {
+      return {};
+    }
+
     var users = {};
 
     function addToUser(user_id, value) {
