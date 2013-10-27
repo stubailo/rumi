@@ -32,7 +32,14 @@ Household.validateExpense = function (household_id, expense) {
   }, 0);
   
   if(expense.cost - portionSum !== 0) {
-    throw new Meteor.Error(0, "Each expense must have a balance of 0.");
+    throw new Meteor.Error(0, "Expenses must have a balance of 0.");
+  }
+
+  // it's a payment
+  if(expense.cost < 0) {
+    if(_.filter(_.pairs(expense.portions), function(portion) { return portion[1] !== 0; }).length > 1) {
+      throw new Meteor.Error(0, "Payments must be between two people.");
+    }
   }
 
   return true;
@@ -54,14 +61,10 @@ _.extend(Household.prototype, {
   },
 
   // the argument is a dictionary of user_ids to numbers
-  addExpense: function(obj) {
+  addExpense: function(obj, callback) {
     obj.created_at = new Date().getTime();
     obj.household_id = this._id;
-    Meteor.call("addExpenseToHousehold", this._id, obj, function(error) {
-      if(error) {
-        TempSession.set("household_expense_add_error", error.reason);
-      }
-    });
+    Meteor.call("addExpenseToHousehold", this._id, obj, callback);
   },
 
   updateExpense: function(obj, callback) {
@@ -103,6 +106,14 @@ _.extend(Household.prototype, {
         }
       }
     });
+
+    // we actually want the negative values here
+    var user_id;
+    for(user_id in users) {
+      if(users.hasOwnProperty(user_id)) {
+        users[user_id] = -users[user_id];
+      }
+    }
 
     return users;
   },

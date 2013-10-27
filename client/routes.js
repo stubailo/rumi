@@ -34,7 +34,9 @@ Router.map(function () {
       return [Meteor.subscribe("households"), Meteor.subscribe("allUsers")];
     },
     data: function () {
-      return Households.findOne({_id: this.params._id});
+      var household = Households.findOne({_id: this.params._id});
+      PageSession.set("household", household);
+      return household;
     }
   });
   
@@ -47,16 +49,6 @@ Router.map(function () {
       return {
         households: Households.find().fetch()
       };
-    }
-  });
-
-  this.route("household_pay", {
-    path: "/households/:_id/pay",
-    waitOn: function () {
-      return [Meteor.subscribe("households"), Meteor.subscribe("allUsers")];
-    },
-    data: function () {
-      return Households.findOne({_id: this.params._id});
     }
   });
 });

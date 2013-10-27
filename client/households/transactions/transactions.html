@@ -32,8 +32,29 @@
   </tr>
 </template>
 
+<template name="household_payment_row">
+  <tr>
+    <td colspan=100>
+      {{user_email user_id}} paid {{user_email target}} {{amount}}
+      {{#if can "update" "expense" this}}
+      <button class="edit btn btn-sm btn-warning">Edit</button>
+      <button class="delete btn btn-sm btn-danger">Delete</button>
+      {{/if}}
+    </td>
+  </td>
+</template>
+
+<template name="household_payment_edit_row">
+  <tr>
+    <td colspan=100>
+      {{> household_payment_form_row}}
+    </td>
+  </td>
+</template>
+
 <template name="household_add_transaction">
-  {{#if add_payment}}
+  <h3>Add Transaction</h3>
+  {{#if payment_tab}}
     <ul class="nav nav-tabs">
       <li><a href="#" class="expense-tab">Expense</a></li>
       <li class="active"><a href="#" class="active payment-tab">Payment</a></li>
@@ -48,17 +69,25 @@
   {{/if}}
 </template>
 
-<template name="household_expenses">
+<template name="transactions">
   {{> household_add_transaction}}
   <hr/>
 
   <table class="table table-striped table-condensed">
     {{#each expenses}}
-    {{#if editing}}
-    {{> household_expense_edit_row}}
-    {{else}}
-    {{> household_expense_row}}
-    {{/if}}
+      {{#if isPayment}}
+        {{#if editing}}
+          {{> household_payment_edit_row}}
+        {{else}}
+          {{> household_payment_row}}
+        {{/if}}
+      {{else}}
+        {{#if editing}}
+          {{> household_expense_edit_row}}
+        {{else}}
+          {{> household_expense_row}}
+        {{/if}}
+      {{/if}}
     {{/each}}
 
     <tr><td colspan="100">Balances</td></tr>
@@ -80,7 +109,6 @@
 </template>
 
 <template name="household_add_expense">
-  <h3>Add Expense</h3>
   <form>
     {{#if error}}
     {{error}}
@@ -143,7 +171,6 @@
 <template name="household_add_payment">
   <form>
     From: {{user_email currentUser._id}}
-    <input type="hidden" name="user_id" value="{{currentUser._id}}" />
     To:
     <select name="to">
       {{#each user_ids}}
@@ -157,5 +184,26 @@
 </template>
 
 <template name="household_payment_form_row">
-  
+  <form>
+    {{#if created_at}}
+      <input class="hidden" name="created_at" value="{{created_at}}" />
+    {{/if}}
+    From: {{user_email user_id}}
+    To:
+    <select name="to">
+      {{#each user_ids}}
+        {{#if selected ..}}
+          <option value="{{this}}" selected>{{user_email ..}}</option>
+        {{else}}
+          <option value="{{this}}">{{user_email ..}}</option>
+        {{/if}}
+      {{/each}}
+    </select>
+
+    <input type="number" name="amount" placeholder="amount" value="{{amount}}"/>
+    <input type="submit" value="Save" />
+    {{#if created_at}}
+      <a href="#" class="cancel btn btn-default">Cancel</a>
+    {{/if}}
+  </form>
 </template>
