@@ -62,5 +62,37 @@ Template.household_payment_form_row.helpers({
     });
 
     return -targetPair[1];
+  },
+
+  user_ids: function() {
+    return PageSession.get("household").user_ids;
   }
+
 });
+
+Template.household_payment_edit_row.events = {
+  "click .cancel": function (event, template) {
+    PageSession.set("household_expense_editing", undefined);
+  },
+
+  "submit form": function (event, template) {
+    event.preventDefault();
+
+    formData = Util.serializeForm(template.find("form"));
+
+    var expense = {};
+    expense.user_id = formData.user_id;
+    expense.created_at = formData.created_at;
+    expense.cost = -formData.amount;
+    expense.portions = {};
+    expense.portions[formData.to] = -formData.amount;
+
+    PageSession.get("household").updateExpense(expense, function(error) {
+      if(error) {
+        console.log(error.reason);
+      } else {
+        PageSession.set("household_expense_editing", undefined);
+      }
+    });
+  }
+};

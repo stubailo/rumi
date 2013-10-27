@@ -37,15 +37,16 @@
 <template name="household_add_expense">
   <form>
     {{#if error}}
-    {{error}}
+      <tr>
+        <td colspan=100>
+          {{error}}
+        </td>
+      </tr>
     {{/if}}
-    <table>
-      {{#with newExpense}}
+    {{#with newExpense}}
       {{> household_expense_row_header}}
       {{> household_expense_form_row}}
-      {{/with}}
-    </table>
-    <!--     <input type="submit" value="Save expense" /> -->
+    {{/with}}
   </form>
 </template>
 

@@ -1,9 +1,7 @@
 <template name="transactions">
   {{! this is the main table of transactions.}}
-  {{> household_add_transaction}}
-  <hr/>
-
   <table class="transaction-table">
+    {{> household_add_transaction}}
     {{#each expenses}}
       {{#if isPayment}}
         {{#if editing}}
@@ -19,41 +17,55 @@
         {{/if}}
       {{/if}}
     {{/each}}
-    {{> transactions_balances}}
   </table>
+  
+  {{> transactions_balances}}
 </template>
 
 <template name="transactions_balances">
-  <tr><td colspan="100">Balances</td></tr>
-  <tr>
-    {{#each object balances}}
-    <td>
-      {{user_email key}}
-    </td>
-    {{/each}}
-  </tr>
-  <tr>
-    {{#each object balances}}
-    <td>
-      {{value}}
-    </td>
-    {{/each}}
-  </tr>
+  <h3>Balances</h3>
+  <p>Positive numbers mean that person owes money to the group, negative numbers mean that the group owes that person money.
+  <table class="balances-table">
+      {{#each object balances}}
+      <tr>
+        <td>
+          {{user_email key}}
+        </td>
+        <td>
+          {{value}}
+        </td>
+      </tr>
+      {{/each}}
+  </table>
 </template>
 
 <template name="household_add_transaction">
-  <h3>Add Transaction</h3>
+  <tbody>
+    <tr>
+      <td colspan=100>
+        <h3>Add Transaction</h3>
+        {{#if payment_tab}}
+          <ul class="nav nav-tabs">
+            <li><a href="#" class="expense-tab">Expense</a></li>
+            <li class="active"><a href="#" class="active payment-tab">Payment</a></li>
+          </ul>
+        {{else}}
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#" class="expense-tab">Expense</a></li>
+            <li><a href="#" class="payment-tab">Payment</a></li>
+          </ul>
+        {{/if}}
+      </td>
+    </tr>
+  </tbody>
   {{#if payment_tab}}
-    <ul class="nav nav-tabs">
-      <li><a href="#" class="expense-tab">Expense</a></li>
-      <li class="active"><a href="#" class="active payment-tab">Payment</a></li>
-    </ul>
     {{> household_add_payment}}
   {{else}}
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#" class="expense-tab">Expense</a></li>
-      <li><a href="#" class="payment-tab">Payment</a></li>
-    </ul>
     {{> household_add_expense}}
   {{/if}}
+  <tbody>
+    <tr><td colspan=100>
+      <h3>History of Transactions</h3>
+    </td></tr>
+  </tbody>
 </template>

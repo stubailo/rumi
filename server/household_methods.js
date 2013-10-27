@@ -12,17 +12,15 @@ Meteor.methods({
   },
   addExpenseToHousehold: function(household_id, expense) {
     Household.validateExpense(household_id, expense);
-    console.log("what");
     Households.update({_id: household_id}, {$push: {"expenses": expense}});
   },
   updateExpenseInHousehold: function (household_id, expense) {
     Household.validateExpense(household_id, expense);
-    console.log("should really update..");
-    console.log(expense);
     Households.update({_id: household_id, "expenses.created_at": expense.created_at}, {$set: {"expenses.$": expense}});
   },
   removeExpenseFromHousehold: function (household_id, expense) {
     Household.validateDeleteExpense(household_id, expense);
-    Households.update({_id: household_id, "expenses.created_at": expense.created_at}, {$pop: {"expenses": 1}});
+    console.log(expense);
+    Households.update({_id: household_id}, {$pull: {"expenses": {"created_at": expense.created_at}}});
   }
 });
