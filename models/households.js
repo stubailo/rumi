@@ -76,6 +76,17 @@ _.extend(Household.prototype, {
     Meteor.call("updateExpenseInHousehold", this._id, new_expense, callback);
   },
 
+  newTransaction: function() {
+    var portions = {};
+    this.user_ids.forEach(function(user_id) {
+      portions[user_id] = null;
+    });
+    return {
+      portions: portions,
+      user_id: Meteor.user()._id
+    };
+  },
+
   // for each person, calculates the difference between what they have spent
   // and what they owe
   getBalances: function() {

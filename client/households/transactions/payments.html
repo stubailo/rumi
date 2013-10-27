@@ -1,0 +1,59 @@
+<template name="household_payment_row">
+  <tr>
+    <td colspan=100>
+      {{user_email user_id}} paid {{user_email target}} {{amount}}
+      {{#if can "update" "expense" this}}
+      <button class="edit btn btn-sm btn-warning">Edit</button>
+      <button class="delete btn btn-sm btn-danger">Delete</button>
+      {{/if}}
+    </td>
+  </td>
+</template>
+
+<template name="household_payment_edit_row">
+  <tr>
+    <td colspan=100>
+      {{> household_payment_form_row}}
+    </td>
+  </td>
+</template>
+
+<template name="household_add_payment">
+  <form>
+    From: {{user_email currentUser._id}}
+    To:
+    <select name="to">
+      {{#each user_ids}}
+      <option value="{{this}}">{{user_email this}}</option>
+      {{/each}}
+    </select>
+
+    <input type="number" name="amount" placeholder="amount"/>
+    <input type="submit" value="Save" />
+  </form>
+</template>
+
+<template name="household_payment_form_row">
+  <form>
+    {{#if created_at}}
+      <input class="hidden" name="created_at" value="{{created_at}}" />
+    {{/if}}
+    From: {{user_email user_id}}
+    To:
+    <select name="to">
+      {{#each user_ids}}
+        {{#if selected ..}}
+          <option value="{{this}}" selected>{{user_email ..}}</option>
+        {{else}}
+          <option value="{{this}}">{{user_email ..}}</option>
+        {{/if}}
+      {{/each}}
+    </select>
+
+    <input type="number" name="amount" placeholder="amount" value="{{amount}}"/>
+    <input type="submit" value="Save" />
+    {{#if created_at}}
+      <a href="#" class="cancel btn btn-default">Cancel</a>
+    {{/if}}
+  </form>
+</template>

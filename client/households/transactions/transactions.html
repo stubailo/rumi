@@ -1,75 +1,5 @@
-<template name="household_expense_row_header">
-  <tr>
-    <td></td>
-    <td>Total Cost</td>
-    <td>Description</td>
-    {{#each object portions}}
-    <td>
-      {{user_email key}}
-    </td>
-    {{/each}}
-    <td></td>
-  </tr>
-</template>
-
-<template name="household_expense_row">
-  {{> household_expense_row_header}}
-  <tr>
-    <td>{{user_email user_id}}</td>
-    <td>{{cost}}</td>
-    <td>{{description}}</td>
-    {{#each object portions}}
-    <td>
-      {{value}}
-    </td>
-    {{/each}}
-    <td>
-      {{#if can "update" "expense" this}}
-      <button class="edit btn btn-sm btn-warning">Edit</button>
-      <button class="delete btn btn-sm btn-danger">Delete</button>
-      {{/if}}
-    </td>
-  </tr>
-</template>
-
-<template name="household_payment_row">
-  <tr>
-    <td colspan=100>
-      {{user_email user_id}} paid {{user_email target}} {{amount}}
-      {{#if can "update" "expense" this}}
-      <button class="edit btn btn-sm btn-warning">Edit</button>
-      <button class="delete btn btn-sm btn-danger">Delete</button>
-      {{/if}}
-    </td>
-  </td>
-</template>
-
-<template name="household_payment_edit_row">
-  <tr>
-    <td colspan=100>
-      {{> household_payment_form_row}}
-    </td>
-  </td>
-</template>
-
-<template name="household_add_transaction">
-  <h3>Add Transaction</h3>
-  {{#if payment_tab}}
-    <ul class="nav nav-tabs">
-      <li><a href="#" class="expense-tab">Expense</a></li>
-      <li class="active"><a href="#" class="active payment-tab">Payment</a></li>
-    </ul>
-    {{> household_add_payment}}
-  {{else}}
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#" class="expense-tab">Expense</a></li>
-      <li><a href="#" class="payment-tab">Payment</a></li>
-    </ul>
-    {{> household_add_expense}}
-  {{/if}}
-</template>
-
 <template name="transactions">
+  {{! this is the main table of transactions.}}
   {{> household_add_transaction}}
   <hr/>
 
@@ -89,121 +19,41 @@
         {{/if}}
       {{/if}}
     {{/each}}
-
-    <tr><td colspan="100">Balances</td></tr>
-    <tr>
-      {{#each object balances}}
-      <td>
-        {{user_email key}}
-      </td>
-      {{/each}}
-    </tr>
-    <tr>
-      {{#each object balances}}
-      <td>
-        {{value}}
-      </td>
-      {{/each}}
-    </tr>
+    {{> transactions_balances}}
   </table>
 </template>
 
-<template name="household_add_expense">
-  <form>
-    {{#if error}}
-    {{error}}
-    {{/if}}
-    <table>
-      {{#with new_expense}}
-      {{> household_expense_row_header}}
-      {{> household_expense_form_row}}
-      {{/with}}
-    </table>
-    <!--     <input type="submit" value="Save expense" /> -->
-  </form>
-</template>
-
-<template name="household_expense_edit_row">
-  <form class="edit-form">
-    <input class="hidden" type="number" name="created_at" value="{{created_at}}" />
-    {{#if error}}
-    <tr><td colspan="140">{{error}}</td></tr>
-    {{/if}}
-    {{> household_expense_row_header}}
-    {{> household_expense_form_row}}
-  </form>
-</template>
-
-<template name="household_expense_form_row">
+<template name="transactions_balances">
+  <tr><td colspan="100">Balances</td></tr>
   <tr>
-    <td> <div class="form-group">{{user_email user_id}}<input type="hidden" name="user_id" value="{{user_id}}" /></div></td>
+    {{#each object balances}}
     <td>
-      <div class="form-group">
-        <input type="number" name="cost" placeholder="0.00" value="{{cost}}"
-        class="form-control">
-      </div>
-    </td>
-    <td>
-      <div class="form-group">
-        <input name="description" placeholder="ex: dry cleaning" value="{{description}}"
-        class="form-control">
-      </div>
-    </td>
-    {{#each object portions}}
-    <td>
-      <div class="form-group">
-        <input type="number" name="portions.{{key}}" placeholder="0.00" value="{{value}}"
-        class="form-control">
-      </div>
+      {{user_email key}}
     </td>
     {{/each}}
+  </tr>
+  <tr>
+    {{#each object balances}}
     <td>
-      <div class="form-group">
-        <button class="save btn btn-sm btn-success">Save</button>
-        {{#if created_at}} {{! this is an edit form}}
-        <button class="cancel btn btn-sm btn-default">Cancel</button>
-        {{/if}}
-      </div>
+      {{value}}
     </td>
+    {{/each}}
   </tr>
 </template>
 
-<template name="household_add_payment">
-  <form>
-    From: {{user_email currentUser._id}}
-    To:
-    <select name="to">
-      {{#each user_ids}}
-      <option value="{{this}}">{{user_email this}}</option>
-      {{/each}}
-    </select>
-
-    <input type="number" name="amount" placeholder="amount"/>
-    <input type="submit" value="Save" />
-  </form>
-</template>
-
-<template name="household_payment_form_row">
-  <form>
-    {{#if created_at}}
-      <input class="hidden" name="created_at" value="{{created_at}}" />
-    {{/if}}
-    From: {{user_email user_id}}
-    To:
-    <select name="to">
-      {{#each user_ids}}
-        {{#if selected ..}}
-          <option value="{{this}}" selected>{{user_email ..}}</option>
-        {{else}}
-          <option value="{{this}}">{{user_email ..}}</option>
-        {{/if}}
-      {{/each}}
-    </select>
-
-    <input type="number" name="amount" placeholder="amount" value="{{amount}}"/>
-    <input type="submit" value="Save" />
-    {{#if created_at}}
-      <a href="#" class="cancel btn btn-default">Cancel</a>
-    {{/if}}
-  </form>
+<template name="household_add_transaction">
+  <h3>Add Transaction</h3>
+  {{#if payment_tab}}
+    <ul class="nav nav-tabs">
+      <li><a href="#" class="expense-tab">Expense</a></li>
+      <li class="active"><a href="#" class="active payment-tab">Payment</a></li>
+    </ul>
+    {{> household_add_payment}}
+  {{else}}
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#" class="expense-tab">Expense</a></li>
+      <li><a href="#" class="payment-tab">Payment</a></li>
+    </ul>
+    {{> household_add_expense}}
+  {{/if}}
 </template>
