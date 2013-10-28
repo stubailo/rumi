@@ -11,7 +11,7 @@
 </template>
 
 <template name="household_expense_row">
-  <tr class="striped">
+  <tr class="expense striped">
     <td>{{user_email user_id}}</td>
     <td>{{cost}}</td>
     <td>{{description}}</td>
@@ -22,8 +22,8 @@
     {{/each}}
     <td>
       {{#if can "update" "expense" this}}
-      <button class="edit btn btn-sm btn-warning">Edit</button>
-      <button class="delete btn btn-sm btn-danger">Delete</button>
+      <button class="edit btn btn-xs btn-warning">Edit</button>
+      <button class="delete btn btn-xs btn-danger">Delete</button>
       {{/if}}
     </td>
   </tr>
@@ -46,7 +46,7 @@
 </template>
 
 <template name="household_expense_edit_row">
-  <form class="edit-form stripe-this">
+  <form class="edit-form striped">
     <input class="hidden" type="number" name="created_at" value="{{created_at}}" />
     {{#if error}}
     <tr><td colspan="140">{{error}}</td></tr>
@@ -57,11 +57,11 @@
 </template>
 
 <template name="household_expense_form_row">
-  <tr>
+  <tr class="add-expense">
     <td> <div class="form-group">{{user_email user_id}}<input type="hidden" name="user_id" value="{{user_id}}" /></div></td>
     <td>
       <div class="form-group">
-        <input type="number" name="cost" placeholder="0.00" value="{{cost}}"
+        <input type="number" step=".01" name="cost" placeholder="0.00" value="{{cost}}"
         class="form-control">
       </div>
     </td>
@@ -74,7 +74,7 @@
     {{#each object portions}}
     <td>
       <div class="form-group">
-        <input type="number" name="portions.{{key}}" placeholder="0.00" value="{{value}}"
+        <input type="number" step=".01" name="portions.{{key}}" placeholder="0.00" value="{{value}}"
         class="form-control">
       </div>
     </td>

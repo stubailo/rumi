@@ -84,6 +84,21 @@ html, body {
     }
   }
 
+  .expense, .add-expense {
+  	td:last-child {
+  		text-align: right;
+  	}
+  }
+
+  .payment {
+  	button {
+  		float: right;
+  		&.edit {
+  			margin-right: 4px;
+  		}
+  	}
+  }
+
   .striped:nth-child(2n-1) {
     background: #eee;
   }
@@ -99,4 +114,9 @@ html, body {
 .household-users {
 	background: #f0f0f0;
 	padding: 10px;
+}
+
+// Footer
+footer {
+  font-size:11px;
 }

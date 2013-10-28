@@ -1,12 +1,16 @@
 <template name="new_household">
-  <form role="form">
-    <div class="form-group">
-      <label for="name">New Household Name</label>
-      <input name="name" class="form-control" placeholder="ex: 554 W 50th St.">
-    </div>
-    <!--   <input name="name" placeholder="name" /> -->
-    <input class="btn btn-success" type="submit" value="Create Household" />
-  </form>
+  <div class="col-md-4 col-md-offset-4">
+    <h2>New Household</h2>
+    <p>A household represents a group of people that are sharing a place to live—and also sharing the costs of staying there.</p>
+    <form role="form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input name="name" class="form-control" placeholder="ex: 554 W 50th St.">
+      </div>
+      <!--   <input name="name" placeholder="name" /> -->
+      <input class="btn btn-success" type="submit" value="Create Household" />
+    </form>
+  </div>
 </template>
 
 <template name="household">
@@ -17,15 +21,10 @@
 </template>
 
 <template name="household_users">
-<div class="household-users">
-  <ul>
-    {{#each users}}
-    <li>{{primary_email}}</li>
-    {{/each}}
-  </ul>
-
-  {{> household_add_user}}
-  {{> household_leave}}
+  <div class="household-users">
+    {{> transactions_balances}}
+    {{> household_add_user}}
+    {{> household_leave}}
   </div>
 </template>
 
