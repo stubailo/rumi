@@ -1,6 +1,6 @@
 <template name="transactions">
   {{! this is the main table of transactions.}}
-
+  
   <h3>Add Transaction</h3>
   {{#if payment_tab}}
     <ul class="nav nav-tabs">
@@ -43,14 +43,22 @@
   <p>Positive numbers mean that person owes money to the group, negative numbers mean that the group owes that person money.
   <table class="balances-table">
       {{#each object balances}}
-      <tr>
-        <td>
-          {{user_email key}}
-        </td>
-        <td>
-          {{value}}
-        </td>
-      </tr>
+        <tr>
+          <td>
+            {{user_email key}}
+          </td>
+          <td>
+            {{value}}
+          </td>
+        </tr>
       {{/each}}
   </table>
+</template>
+
+<template name="household_add_transaction">
+  {{#if payment_tab}}
+    {{> household_add_payment}}
+  {{else}}
+    {{> household_add_expense}}
+  {{/if}}
 </template>

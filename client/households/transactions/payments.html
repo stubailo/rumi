@@ -1,5 +1,6 @@
 <template name="household_payment_row">
-  <tr class="striped">
+  <tbody>
+  <tr class="payment striped">
     <td class="payment" colspan=100>
       {{user_email user_id}} paid {{user_email target}} {{amount}}
       {{#if can "update" "expense" this}}
@@ -7,18 +8,22 @@
       <button class="edit btn btn-xs btn-warning">Edit</button>
       {{/if}}
     </td>
-  <tr>
+  </tr>
+  </tbody>
 </template>
 
 <template name="household_payment_edit_row">
+  <tbody>
   <tr class="striped">
     <td colspan=100>
       {{> household_payment_form_row}}
     </td>
   </tr>
+  </tbody>
 </template>
 
 <template name="household_add_payment">
+  <tbody>
   <tr>
     <td colspan=100>
       <form style='display: block' class='form-inline'>
@@ -39,6 +44,7 @@
       </form>
     </td>
   </tr>
+  </tbody>
 </template>
 
 <template name="household_payment_form_row">
