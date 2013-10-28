@@ -17,15 +17,10 @@
 </template>
 
 <template name="household_users">
-<div class="household-users">
-  <ul>
-    {{#each users}}
-    <li>{{primary_email}}</li>
-    {{/each}}
-  </ul>
-
-  {{> household_add_user}}
-  {{> household_leave}}
+  <div class="household-users">
+    {{> transactions_balances}}
+    {{> household_add_user}}
+    {{> household_leave}}
   </div>
 </template>
 
