@@ -1,11 +1,4 @@
 <template name="not_found">
-<nav class="navbar navbar-default" role="navigation">
-<a class="navbar-brand" href="{{pathFor 'home'}}">rumi</a>
-  {{#if currentUser}}
-    {{> user_logged_in}}
-    <a class="btn btn-default pull-right" href="{{pathFor 'households'}}">Households</a>
-      {{/if}}
-</nav>
-
-Something is missing!
+  <h2>Oops!</h2>
+  <p>We didn't find anything to show you.  Try a different page?</p>
 </template>

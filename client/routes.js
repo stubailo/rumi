@@ -1,5 +1,4 @@
 Router.configure({
-  notFoundTemplate: "not_found",
   layoutTemplate: "application_layout",
   waitOn: function () {
     return [Meteor.subscribe("households"), Meteor.subscribe("allUsers")];
@@ -56,6 +55,10 @@ Router.map(function () {
       if(household) {
         Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.lastHouseholdVisited": this.params._id}});
         PageSession.set("household", household);
+      } else {
+        this.setLayout("application_layout");
+        this.render("not_found");
+        this.stop();
       }
       return household;
     }
@@ -63,5 +66,9 @@ Router.map(function () {
   
   this.route("households", {
     path: "/households"
+  });
+
+  this.route("not_found", {
+    path: "*"
   });
 });
