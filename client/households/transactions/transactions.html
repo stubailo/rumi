@@ -1,6 +1,6 @@
 <template name="transactions">
   {{! this is the main table of transactions.}}
-
+  
   <h3>Add Transaction</h3>
   {{#if payment_tab}}
     <ul class="nav nav-tabs">
@@ -41,14 +41,14 @@
 <template name="transactions_balances">
   <table class="balances-table">
       {{#each object balances}}
-      <tr>
-        <td>
-          {{user_email key}}
-        </td>
-        <td>
-          {{value}}
-        </td>
-      </tr>
+        <tr>
+          <td>
+            {{user_email key}}
+          </td>
+          <td>
+            {{value}}
+          </td>
+        </tr>
       {{/each}}
   </table>
 </template>

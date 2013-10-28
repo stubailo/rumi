@@ -1,4 +1,5 @@
 <template name="household_expense_row_header">
+
   <tr>
     <th>Lender</th>
     <th>Total Cost</th>
@@ -11,7 +12,8 @@
 </template>
 
 <template name="household_expense_row">
-  <tr class="expense striped">
+  <tbody class="striped">
+  <tr class="expense">
     <td>{{user_email user_id}}</td>
     <td>{{cost}}</td>
     <td>{{description}}</td>
@@ -27,6 +29,7 @@
       {{/if}}
     </td>
   </tr>
+  </tbody>
 </template>
 
 <template name="household_add_expense">
@@ -58,24 +61,21 @@
 
 <template name="household_expense_form_row">
   <tr class="add-expense">
-    <td> <div class="form-group">{{user_email user_id}}<input type="hidden" name="user_id" value="{{user_id}}" /></div></td>
+    <td><div class="form-group">{{user_email user_id}}<input type="hidden" name="user_id" value="{{user_id}}" /></div></td>
     <td>
       <div class="form-group">
-        <input type="number" step=".01" name="cost" placeholder="0.00" value="{{cost}}"
-        class="form-control">
+        <input type="number" step=".01" name="cost" placeholder="0.00" value="{{cost}}" class="form-control">
       </div>
     </td>
     <td>
       <div class="form-group">
-        <input name="description" placeholder="ex: dinner at Area Four" value="{{description}}"
-        class="form-control">
+        <input name="description" placeholder="ex: dinner at Area Four" value="{{description}}" class="form-control">
       </div>
     </td>
     {{#each object portions}}
     <td>
       <div class="form-group">
-        <input type="number" step=".01" name="portions.{{key}}" placeholder="0.00" value="{{value}}"
-        class="form-control">
+        <input type="number" step=".01" name="portions.{{key}}" placeholder="0.00" value="{{value}}" class="form-control">
       </div>
     </td>
     {{/each}}
