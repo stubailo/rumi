@@ -111,9 +111,9 @@ html, body {
 }
 
 // Household page
-.household-users {
-	background: #f0f0f0;
-	padding: 10px;
+.household-users .balances-table {
+  font-size: 1.1em;
+  min-width: 80%;
 }
 
 // Footer
@@ -121,55 +121,67 @@ footer {
   font-size:11px;
 }
 
-
-
 /* navbar */
 .navbar {
   -webkit-border-radius: 0 !important;
      -moz-border-radius: 0 !important;
           border-radius: 0 !important;
+  color: #fff;
 }
-
 .navbar-default {
     background-color: #E84A5F;
     border-color: #E84A5F;
     color:#fff;
 }
+
 /* title */
 .navbar-default .navbar-brand {
     color: #fff;
 }
+.navbar-default .navbar-brand:hover {
+  color: #fff;
+}
+
 /* link */
 .navbar-default .navbar-nav > li > a {
     color: #fff;
 }
-.navbar-default .navbar-nav > li > a:hover {
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
     color: #fff;
 }
 .navbar-default .navbar-nav > .active > a, 
 .navbar-default .navbar-nav > .active > a:hover, 
 .navbar-default .navbar-nav > .active > a:focus {
-    color: #555;
-    background-color: #E7E7E7;
+    color: #fff;
+    background-color: #bb434e;
 }
+
 .navbar-default .navbar-nav > .open > a, 
 .navbar-default .navbar-nav > .open > a:hover, 
 .navbar-default .navbar-nav > .open > a:focus {
     color: #fff;
-    background-color: #D5D5D5;
+    background-color: #bb434e;
 }
+
 /* caret */
-.navbar-default .navbar-nav > li > a .caret {
-    border-top-color: #777;
-    border-bottom-color: #777;
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #fbedbe;
+    border-bottom-color: #fbedbe;
 }
-.navbar-default .navbar-nav > li > a:hover .caret {
-    border-top-color: #333;
-    border-bottom-color: #333;
+.navbar-default .navbar-nav > .dropdown > a:hover .caret {
+    border-top-color: #fbedbe;
+    border-bottom-color: #fbedbe;
 }
 .navbar-default .navbar-nav > .open > a .caret, 
 .navbar-default .navbar-nav > .open > a:hover .caret, 
 .navbar-default .navbar-nav > .open > a:focus .caret {
-    border-top-color: #555;
-    border-bottom-color: #555;
+    border-top-color: #fbedbe;
+    border-bottom-color: #fbedbe;
+}
+
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+  border-top-color: #fbedbe;
+  border-bottom-color: #fbedbe;
 }

@@ -14,18 +14,19 @@
 </template>
 
 <template name="household">
-  <h2>{{name}}</h2>
-  {{> household_users}}
-  <hr/>
-  {{> transactions}}
-</template>
-
-<template name="household_users">
-  <div class="household-users">
-    {{> transactions_balances}}
-    {{> household_add_user}}
-    {{> household_leave}}
-  </div>
+    <div class="household-users row">
+      <div class="col-md-6">
+        <h2>{{name}}</h2>
+        {{> household_add_user}}
+        {{> household_leave}}
+      </div>
+      <div class="col-md-6">
+        <h3>Balances</h3>
+        <p>Positive numbers mean that person owes money to the group, negative numbers mean that the group owes that person money.</p>
+        {{> transactions_balances}}
+      </div>
+    </div>
+    {{> transactions}}
 </template>
 
 <template name="households">
@@ -45,11 +46,10 @@
   {{error}}
   <form role="form" class="form-inline">
       <div class="form-group">
-  <!--       <label for="email">Add User</label> -->
-        <input name="email" type="email" class="form-control" placeholder="Email">
+        <input name="email" type="email" class="form-control input-sm" placeholder="Email">
       </div>
       <div class="form-group">
-      <input class="btn btn-success" type="submit" value="Add" />
+      <input class="btn btn-success btn-sm" type="submit" value="Add Housemate" />
       </div>
     </form>
 </template>

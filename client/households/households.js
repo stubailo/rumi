@@ -29,6 +29,7 @@ Template.household_add_user.events = {
       if(error) {
         PageSession.set("household_add_user_error", error.reason);
       } else {
+        PageSession.set("household_add_user_error", undefined);
         $(template.find("input")).val("");
       }
     });

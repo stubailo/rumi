@@ -90,8 +90,11 @@ _.extend(Household.prototype, {
   // for each person, calculates the difference between what they have spent
   // and what they owe
   getBalances: function() {
-    if(!this.expenses) {
-      return {};
+    if(!this.expenses || this.expenses.length === 0) {
+      console.log(this);
+      return _.object(_.map(this.user_ids, function(user_id) {
+        return [user_id, 0];
+      }));
     }
 
     var users = {};
