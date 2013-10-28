@@ -6,9 +6,15 @@ Template.user_logged_in.events({
   }
 });
 
-Template.user_logged_in.currentHousehold = function() {
-  return PageSession.get("household");
-};
+Template.user_logged_in.helpers({
+  currentHousehold: function() {
+    return PageSession.get("household");
+  },
+
+  anyHouseholds: function() {
+   return Meteor.user().households().fetch().length;
+  }
+});
 
 Template.user_registration.error = function() {
   return TempSession.get("registration_error");
