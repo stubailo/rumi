@@ -8,6 +8,10 @@ Household = function (doc) {
       doc.expenses.forEach(function(expense) {
         _.defaults(expense.portions, defaultPortions);
       });
+
+      doc.expenses = _.sortBy(doc.expenses, function(expense) {
+        return -expense.created_at;
+      });
     }
   }
 

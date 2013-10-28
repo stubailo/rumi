@@ -22,6 +22,10 @@ Template.household_add_expense.events = {
   }
 };
 
+Template.household_expense_row_header.householdUsers = function() {
+  return PageSession.get("household").user_ids;
+};
+
 // editing and deleting stuff
 Template.household_expense_row.events = {
   "click .edit": function(event, template) {
