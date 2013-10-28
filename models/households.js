@@ -81,9 +81,15 @@ _.extend(Household.prototype, {
     this.user_ids.forEach(function(user_id) {
       portions[user_id] = null;
     });
+
+    var user_id;
+    if(Meteor.user()) {
+      user_id = Meteor.user()._id;
+    }
+
     return {
       portions: portions,
-      user_id: Meteor.user()._id
+      user_id: user_id
     };
   },
 
