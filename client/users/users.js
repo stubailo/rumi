@@ -1,7 +1,9 @@
 Template.user_logged_in.events({
   "click #log-out": function(event, template) {
     Meteor.logout(function(error) {
-      console.log("There was an error with logging out.");
+      if(error) {
+        console.log("There was an error with logging out.");
+      }
     });
   }
 });
