@@ -1,3 +1,15 @@
+<template name="household_payment_row_header">
+  <tr>
+    <th>Lender</th>
+    <th>Total Cost</th>
+    <th>Description</th>
+    {{#each object portions}}
+    <th>{{user_email key}}</th>
+    {{/each}}
+    <th></th>
+  </tr>
+</template>
+
 <template name="household_payment_row">
   <tbody class="striped">
   <tr class="payment">
@@ -23,6 +35,7 @@
 </template>
 
 <template name="household_add_payment">
+  {{> household_payment_row_header}}
   <tbody class="striped">
   <tr>
     <td colspan=100>
