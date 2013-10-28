@@ -4,18 +4,15 @@ Template.transactions.helpers({
   },
   isPayment: function() {
     return this.cost < 0;
+  },
+  payment_tab: function () {
+    return PageSession.get("addTransactionFormState") === "payment";
   }
 });
 
 Template.transactions_balances.helpers({
   balances: function() {
     return this.getBalances();
-  }
-});
-
-Template.household_add_transaction.helpers({
-  payment_tab: function () {
-    return PageSession.get("addTransactionFormState") === "payment";
   }
 });
 
