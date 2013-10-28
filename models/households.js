@@ -213,23 +213,4 @@ if(Meteor.isServer) {
   Meteor.publish("households", function () {
     return Households.find({user_ids: this.userId});
   });
-
-  Households.allow({
-    insert: function (userId, household) {
-      var keys = _.keys(household);
-      var allowed_keys = Household.attributes;
-      keys.sort();
-      allowed_keys.sort();
-
-      var propertiesAllowed = _.isEqual(keys, allowed_keys);
-      var userIdsIsArray = household.user_ids instanceof Array;
-      var userOwns = _.contains(household.user_ids, userId);
-      return propertiesAllowed && userIdsIsArray && userOwns;
-    },
-
-    update: function (userId, household) {
-      var userOwns = _.contains(household.user_ids, userId);
-      return userOwns;
-    }
-  });
 }

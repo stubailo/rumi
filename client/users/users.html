@@ -1,33 +1,36 @@
 <template name="user_info">
   {{#if currentUser}}
   {{else}}
-  <!-- need to toggle these -->
-  {{> user_registration}}
-  {{> user_login}}
+    <!-- need to toggle these -->
+    {{> user_registration}}
+    {{> user_login}}
   {{/if}}
 </template>
 
 <template name="user_logged_in">
-  <div class="user-info navbar-right">
-
-    <div class="logged-in">
-      {{user_email currentUser._id}}
-    </div>
-
-    <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        My Households <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
+  <ul class="nav navbar-nav">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        {{#isolate}}
+          Household: {{currentHousehold.name}} 
+        {{/isolate}}
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
         {{#each currentUser.households}}
         <li><a href="{{pathFor 'household'}}">{{name}}</a></li>
         {{/each}}
         <li class="divider"></li>
-        <li><a href="{{pathFor 'new_household'}}">New Household...</a></li>
+        <li><a href="{{pathFor 'new_household'}}">New Household</a></li>
       </ul>
-    </div>
+    </li>
+  </ul>
 
-    <button class="btn btn-default" id="log-out">Log out</button>
+  <div class="user-info navbar-right">
+    <div class="logged-in">
+      {{user_email currentUser._id}}
+    </div>
+    <button class="btn btn-default" id="log-out">Log Out</button>
   </div>
 </template>
 

@@ -6,6 +6,10 @@ Template.user_logged_in.events({
   }
 });
 
+Template.user_logged_in.currentHousehold = function() {
+  return PageSession.get("household");
+};
+
 Template.user_registration.error = function() {
   return TempSession.get("registration_error");
 };
