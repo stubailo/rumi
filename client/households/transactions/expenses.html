@@ -33,6 +33,9 @@
 
 <template name="household_add_expense">
   <form>
+    {{#isolate}}
+    {{#with newExpense}}
+      {{> household_expense_row_header}}
     {{#if error}}
       <tr>
         <td colspan=100>
@@ -40,10 +43,9 @@
         </td>
       </tr>
     {{/if}}
-    {{#with newExpense}}
-      {{> household_expense_row_header}}
       {{> household_expense_form_row}}
     {{/with}}
+    {{/isolate}}  
   </form>
 </template>
 
