@@ -1,37 +1,32 @@
 <template name="household_expense_row_header">
   <tr>
-    <td></td>
-    <td>Total Cost</td>
-    <td>Description</td>
+    <th>Lender</th>
+    <th>Total Cost</th>
+    <th>Description</th>
     {{#each object portions}}
-    <td>
-      {{user_email key}}
-    </td>
+    <th>{{user_email key}}</th>
     {{/each}}
-    <td></td>
+    <th></th>
   </tr>
 </template>
 
 <template name="household_expense_row">
-  <tbody class="stripe-this">
-    {{> household_expense_row_header}}
-    <tr>
-      <td>{{user_email user_id}}</td>
-      <td>{{cost}}</td>
-      <td>{{description}}</td>
-      {{#each object portions}}
-      <td>
-        {{value}}
-      </td>
-      {{/each}}
-      <td>
-        {{#if can "update" "expense" this}}
-        <button class="edit btn btn-sm btn-warning">Edit</button>
-        <button class="delete btn btn-sm btn-danger">Delete</button>
-        {{/if}}
-      </td>
-    </tr>
-  </tbody>
+  <tr class="striped">
+    <td>{{user_email user_id}}</td>
+    <td>{{cost}}</td>
+    <td>{{description}}</td>
+    {{#each object portions}}
+    <td>
+      {{value}}
+    </td>
+    {{/each}}
+    <td>
+      {{#if can "update" "expense" this}}
+      <button class="edit btn btn-sm btn-warning">Edit</button>
+      <button class="delete btn btn-sm btn-danger">Delete</button>
+      {{/if}}
+    </td>
+  </tr>
 </template>
 
 <template name="household_add_expense">

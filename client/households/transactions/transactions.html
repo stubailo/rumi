@@ -1,22 +1,36 @@
 <template name="transactions">
   {{! this is the main table of transactions.}}
-  <table class="transaction-table">
-    {{> household_add_transaction}}
-    {{#each expenses}}
-      {{#if isPayment}}
-        {{#if editing}}
-          {{> household_payment_edit_row}}
-        {{else}}
-          {{> household_payment_row}}
-        {{/if}}
+  
+  <h3>Add Transaction</h3>
+  {{#if payment_tab}}
+    <ul class="nav nav-tabs">
+      <li><a href="#" class="expense-tab">Expense</a></li>
+      <li class="active"><a href="#" class="active payment-tab">Payment</a></li>
+    </ul>
+  {{else}}
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#" class="expense-tab">Expense</a></li>
+      <li><a href="#" class="payment-tab">Payment</a></li>
+    </ul>
+  {{/if}}
+
+  <table class="table transaction-table">
+  {{> household_add_transaction}}
+  {{#each expenses}}
+    {{#if isPayment}}
+      {{#if editing}}
+        {{> household_payment_edit_row}}
       {{else}}
-        {{#if editing}}
-          {{> household_expense_edit_row}}
-        {{else}}
-          {{> household_expense_row}}
-        {{/if}}
+        {{> household_payment_row}}
       {{/if}}
-    {{/each}}
+    {{else}}
+      {{#if editing}}
+        {{> household_expense_edit_row}}
+      {{else}}
+        {{> household_expense_row}}
+      {{/if}}
+    {{/if}}
+  {{/each}}
   </table>
   
   {{> transactions_balances}}
@@ -40,32 +54,9 @@
 </template>
 
 <template name="household_add_transaction">
-  <tbody>
-    <tr>
-      <td colspan=100>
-        <h3>Add Transaction</h3>
-        {{#if payment_tab}}
-          <ul class="nav nav-tabs">
-            <li><a href="#" class="expense-tab">Expense</a></li>
-            <li class="active"><a href="#" class="active payment-tab">Payment</a></li>
-          </ul>
-        {{else}}
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#" class="expense-tab">Expense</a></li>
-            <li><a href="#" class="payment-tab">Payment</a></li>
-          </ul>
-        {{/if}}
-      </td>
-    </tr>
-  </tbody>
   {{#if payment_tab}}
     {{> household_add_payment}}
   {{else}}
     {{> household_add_expense}}
   {{/if}}
-  <tbody>
-    <tr><td colspan=100>
-      <h3>History of Transactions</h3>
-    </td></tr>
-  </tbody>
 </template>

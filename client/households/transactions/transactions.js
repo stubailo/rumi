@@ -19,7 +19,7 @@ Template.household_add_transaction.helpers({
   }
 });
 
-Template.household_add_transaction.events = {
+Template.transactions.events = {
   "click a.expense-tab": function (event, template) {
     PageSession.set("addTransactionFormState", "expense");
   },

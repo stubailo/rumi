@@ -65,12 +65,26 @@ html, body {
 
 .transaction-table {
   width: 100%;
-
   form {
     display: table-row-group;
+    tr:first-child {
+    	border-bottom: 2px solid #ddd;
+    }
+    th {
+    	padding: 8px;
+    }
+    td {
+    	padding: 8px 4px;
+    	&:first-child, &:last-child {
+    		padding: 8px;
+    	}
+    	.form-group {
+    		margin-bottom: 0;
+    	}
+    }
   }
 
-  .stripe-this:nth-child(2n) {
+  .striped:nth-child(2n-1) {
     background: #eee;
   }
 }

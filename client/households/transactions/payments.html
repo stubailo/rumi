@@ -1,15 +1,14 @@
 <template name="household_payment_row">
   <tbody class="stripe-this">
-    <tr>
-    <td colspan=100>
-      {{user_email user_id}} paid {{user_email target}} {{amount}}
-      {{#if can "update" "expense" this}}
-      <button class="edit btn btn-sm btn-warning">Edit</button>
-      <button class="delete btn btn-sm btn-danger">Delete</button>
-      {{/if}}
-    </td>
-    <tr>
-  </tbody>
+  <tr>
+  <td colspan=100>
+    {{user_email user_id}} paid {{user_email target}} {{amount}}
+    {{#if can "update" "expense" this}}
+    <button class="edit btn btn-sm btn-warning">Edit</button>
+    <button class="delete btn btn-sm btn-danger">Delete</button>
+    {{/if}}
+  </td>
+  <tr>
 </template>
 
 <template name="household_payment_edit_row">
