@@ -23,8 +23,12 @@
     {{/each}}
     <td>
       {{#if can "update" "expense" this}}
-      <button class="edit btn btn-xs btn-warning">Edit</button>
-      <button class="delete btn btn-xs btn-danger">Delete</button>
+      <button class="edit btn btn-xs btn-warning">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </button>
+      <button class="delete btn btn-xs btn-danger">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
       {{/if}}
     </td>
   </tr>
