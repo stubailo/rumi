@@ -1,7 +1,7 @@
 <template name="transactions">
   {{! this is the main table of transactions.}}
   
-  <h3>Add Transaction</h3>
+  <h4>Add Transaction</h4>
   {{#if payment_tab}}
     <ul class="nav nav-tabs">
       <li><a href="#" class="expense-tab">Expense</a></li>
@@ -20,20 +20,30 @@
   {{else}}
     {{> household_add_expense}}
   {{/if}}
+
+  <tbody>
+    <tr class="transaction-history-header"><td colspan=100>
+        <h4>Transaction History</h4>
+    </td></tr>
+
+    {{> household_expense_row_header}}
+  </tbody>
   {{#each expenses}}
-    {{#if isPayment}}
-      {{#if editing}}
-        {{> household_payment_edit_row}}
+    {{#isolate}}
+      {{#if isPayment}}
+        {{#if editing}}
+          {{> household_payment_edit_row}}
+        {{else}}
+          {{> household_payment_row}}
+        {{/if}}
       {{else}}
-        {{> household_payment_row}}
+        {{#if editing}}
+          {{> household_expense_edit_row}}
+        {{else}}
+          {{> household_expense_row}}
+        {{/if}}
       {{/if}}
-    {{else}}
-      {{#if editing}}
-        {{> household_expense_edit_row}}
-      {{else}}
-        {{> household_expense_row}}
-      {{/if}}
-    {{/if}}
+    {{/isolate}}
   {{/each}}
   </table>
 </template>

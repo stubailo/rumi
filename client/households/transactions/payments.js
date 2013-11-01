@@ -12,7 +12,7 @@ Template.household_add_payment.events = {
     expense.portions = {};
     expense.portions[formData.to] = -formData.amount;
 
-    this.addExpense(expense);
+    PageSession.get("household").addExpense(expense);
   }
 };
 
@@ -53,7 +53,7 @@ Template.household_payment_row.helpers({
 
 Template.household_payment_form_row.helpers({
   selected: function(expense) {
-    return expense.portions[this] !== 0;
+    return expense.portions[this] !== 0 && expense.portions[this] !== null;
   },
 
   amount: function() {
@@ -61,7 +61,11 @@ Template.household_payment_form_row.helpers({
       return pair[1] < 0;
     });
 
-    return -targetPair[1];
+    if(targetPair) {
+      return -targetPair[1];
+    }
+
+    return null;
   },
 
   user_ids: function() {

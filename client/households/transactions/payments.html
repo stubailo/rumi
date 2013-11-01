@@ -29,25 +29,11 @@
 </template>
 
 <template name="household_add_payment">
-  {{> household_expense_row_header}}
   <tr>
     <td colspan=100>
-      <form style='display: block' class='form-inline'>
-        <div class="form-group">
-          {{user_email currentUser._id}}
-        </div>
-        <div class="form-group">
-          <select name="to" class="form-control">
-            {{#each user_ids}}
-            <option value="{{this}}">paid {{user_email this}}</option>
-            {{/each}}
-          </select>
-        </div>
-        <div class="form-group">
-          <input type="number" name="amount" placeholder="0.00" class="form-control" />
-        </div>
-      <input type="submit" value="Save" class="btn btn-success" />
-      </form>
+      {{#with newExpense}}
+        {{> household_payment_form_row}}
+      {{/with}}
     </td>
   </tr>
 </template>
@@ -76,9 +62,19 @@
     <div class="form-group">
       <input type="number" name="amount" placeholder="amount" value="{{amount}}" class="form-control input-sm" />
     </div>
-    <button type="submit" class="btn btn-sm btn-success">Save</button>
-    {{#if created_at}}
-      <a href="#" class="cancel btn btn-default btn-sm">Cancel</a>
-    {{/if}}
+    <div class="pull-right">
+      <div class="form-group">
+        {{#if created_at}}
+          <button type="submit" class="btn btn-xs btn-success">
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+          <a href="#" class="cancel btn btn-default btn-xs">
+            <span class="glyphicon glyphicon-ban-circle"></span>
+          </a>
+        {{else}}
+          <button type="submit" class="btn btn-sm btn-success">Add</button>
+        {{/if}}
+      </div>
+    </div>
   </form>
 </template>

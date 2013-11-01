@@ -36,17 +36,17 @@
 </template>
 
 <template name="household_add_expense">
-  <form>
+  <form class="add-expense-form">
     {{#isolate}}
     {{#with newExpense}}
       {{> household_expense_row_header}}
-    {{#if error}}
-      <tr>
-        <td colspan=100>
-          {{error}}
-        </td>
-      </tr>
-    {{/if}}
+      {{#if error}}
+        <tr>
+          <td colspan=100>
+            {{error}}
+          </td>
+        </tr>
+      {{/if}}
       {{> household_expense_form_row}}
     {{/with}}
     {{/isolate}}  
@@ -59,7 +59,6 @@
     {{#if error}}
     <tr><td colspan="140">{{error}}</td></tr>
     {{/if}}
-    {{> household_expense_row_header}}
     {{> household_expense_form_row}}
   </form>
 </template>
@@ -69,26 +68,32 @@
     <td><div class="form-group">{{user_email user_id}}<input type="hidden" name="user_id" value="{{user_id}}" /></div></td>
     <td>
       <div class="form-group">
-        <input type="number" step=".01" name="cost" placeholder="0.00" value="{{cost}}" class="form-control">
+        <input type="number" step=".01" name="cost" placeholder="0.00" value="{{cost}}" class="form-control input-sm">
       </div>
     </td>
     <td>
       <div class="form-group">
-        <input name="description" placeholder="ex: dinner at Area Four" value="{{description}}" class="form-control">
+        <input name="description" placeholder="ex: dinner at Area Four" value="{{description}}" class="form-control input-sm">
       </div>
     </td>
     {{#each object portions}}
     <td>
       <div class="form-group">
-        <input type="number" step=".01" name="portions.{{key}}" placeholder="0.00" value="{{value}}" class="form-control">
+        <input type="number" step=".01" name="portions.{{key}}" placeholder="0.00" value="{{value}}" class="form-control input-sm">
       </div>
     </td>
     {{/each}}
     <td>
       <div class="form-group">
-        <button class="save btn btn-sm btn-success">Save</button>
         {{#if created_at}} {{! this is an edit form}}
-        <button class="cancel btn btn-sm btn-default">Cancel</button>
+        <button class="save btn btn-success btn-xs">
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <button class="cancel btn btn-default btn-xs">
+          <span class="glyphicon glyphicon-ban-circle"></span>
+        </button>
+        {{else}}
+        <button class="save btn btn-sm btn-success">Add</button>
         {{/if}}
       </div>
     </td>

@@ -70,12 +70,41 @@ html, body {
 }
 
 .transaction-table {
-  width: 100%;
-  form {
-    display: table-row-group;
-    tr:first-child {
-    	border-bottom: 2px solid #ddd;
+  th {
+    font-weight: normal;
+  }
+
+  border: none;
+
+  .transaction-history-header {
+    td {
+      padding: 0;
+      margin: 0;
+      border: none;
     }
+
+    h4 {
+      padding-top: 20px;
+    }
+  
+    border: none;
+  }
+
+  .table-header {
+    border-bottom: 1px solid @table-border-color;
+  }
+
+  .add-expense-form {
+    border: 1px solid @table-border-color;
+
+    td:last-child, th:last-child {
+      border-right: 1px solid @table-border-color;
+    } 
+  }
+
+  width: 100%;
+  & > form {
+    display: table-row-group;
     th {
     	padding: 8px;
     }
@@ -88,6 +117,15 @@ html, body {
     		margin-bottom: 0;
     	}
     }
+    
+  }
+
+  .edit-form {
+    border: 1px solid @table-border-color;
+
+    td:last-child, th:last-child {
+      border-right: 1px solid @table-border-color;
+    } 
   }
 
   .expense, .add-expense {
@@ -98,6 +136,10 @@ html, body {
 
   .striped:nth-child(2n) {
     background: #f6f6f6;
+  }
+
+  td {
+    border-top: none;
   }
 }
 
