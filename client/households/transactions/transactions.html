@@ -1,16 +1,15 @@
 <template name="transactions">
   {{! this is the main table of transactions.}}
   
-  <h4>Add Transaction</h4>
   {{#if payment_tab}}
     <ul class="nav nav-tabs">
-      <li><a href="#" class="expense-tab">Expense</a></li>
-      <li class="active"><a href="#" class="active payment-tab">Payment</a></li>
+      <li><a href="#" class="expense-tab">Add Expense</a></li>
+      <li class="active"><a href="#" class="active payment-tab">Add Payment</a></li>
     </ul>
   {{else}}
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#" class="expense-tab">Expense</a></li>
-      <li><a href="#" class="payment-tab">Payment</a></li>
+      <li class="active"><a href="#" class="expense-tab">Add Expense</a></li>
+      <li><a href="#" class="payment-tab">Add Payment</a></li>
     </ul>
   {{/if}}
 
