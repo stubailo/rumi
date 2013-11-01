@@ -13,6 +13,17 @@ Template.transactions.helpers({
 Template.transactions_balances.helpers({
   balances: function() {
     return this.getBalances();
+  },
+  owes_or_is_owed: function(value) {
+    if(value > 0) {
+      return "owes $" + value.toFixed(2);
+    } 
+    
+    if (value === 0) {
+      return "is even";
+    }
+
+    return "is owed $" + (-value).toFixed(2);
   }
 });
 

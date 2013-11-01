@@ -1,4 +1,6 @@
 /* CSS declarations go here */
+@import "bootstrap/variables.lessimport";
+@import "bootstrap/mixins.lessimport";
 
 // Viewports (usage: @media @var)
 @xs: ~'screen and (max-width: 767px)';
@@ -123,69 +125,4 @@ html, body {
 // Footer
 footer {
   font-size:11px;
-}
-
-/* navbar */
-.navbar {
-  -webkit-border-radius: 0 !important;
-     -moz-border-radius: 0 !important;
-          border-radius: 0 !important;
-  color: #fff;
-}
-.navbar-default {
-    background-color: #E84A5F;
-    border-color: #E84A5F;
-    color:#fff;
-}
-
-/* title */
-.navbar-default .navbar-brand {
-    color: #fff;
-}
-.navbar-default .navbar-brand:hover {
-  color: #fff;
-}
-
-/* link */
-.navbar-default .navbar-nav > li > a {
-    color: #fff;
-}
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-    color: #fff;
-}
-.navbar-default .navbar-nav > .active > a, 
-.navbar-default .navbar-nav > .active > a:hover, 
-.navbar-default .navbar-nav > .active > a:focus {
-    color: #fff;
-    background-color: #bb434e;
-}
-
-.navbar-default .navbar-nav > .open > a, 
-.navbar-default .navbar-nav > .open > a:hover, 
-.navbar-default .navbar-nav > .open > a:focus {
-    color: #fff;
-    background-color: #bb434e;
-}
-
-/* caret */
-.navbar-default .navbar-nav > .dropdown > a .caret {
-    border-top-color: #fbedbe;
-    border-bottom-color: #fbedbe;
-}
-.navbar-default .navbar-nav > .dropdown > a:hover .caret {
-    border-top-color: #fbedbe;
-    border-bottom-color: #fbedbe;
-}
-.navbar-default .navbar-nav > .open > a .caret, 
-.navbar-default .navbar-nav > .open > a:hover .caret, 
-.navbar-default .navbar-nav > .open > a:focus .caret {
-    border-top-color: #fbedbe;
-    border-bottom-color: #fbedbe;
-}
-
-.navbar-default .navbar-nav > .dropdown > a:hover .caret,
-.navbar-default .navbar-nav > .dropdown > a:focus .caret {
-  border-top-color: #fbedbe;
-  border-bottom-color: #fbedbe;
 }

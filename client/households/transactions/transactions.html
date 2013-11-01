@@ -40,13 +40,14 @@
 
 <template name="transactions_balances">
   <table class="balances-table">
+    <tr><th>User</th><th>Balance</th></tr>
       {{#each object balances}}
         <tr>
           <td>
             {{user_email key}}
           </td>
           <td>
-            {{value}}
+            {{owes_or_is_owed value}}
           </td>
         </tr>
       {{/each}}
