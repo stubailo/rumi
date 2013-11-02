@@ -6,7 +6,7 @@
     {{#each householdUsers}}
     <th>{{user_email this}}</th>
     {{/each}}
-    <th></th>
+    <th class="actions-column"></th>
   </tr>
 </template>
 
@@ -39,14 +39,16 @@
   <form class="add-expense-form">
     {{#isolate}}
     {{#with newExpense}}
-      {{> household_expense_row_header}}
       {{#if error}}
         <tr>
           <td colspan=100>
-            {{error}}
+            <div class="alert alert-danger">
+              {{error}}
+            </div>
           </td>
         </tr>
       {{/if}}
+      {{> household_expense_row_header}}
       {{> household_expense_form_row}}
     {{/with}}
     {{/isolate}}  
@@ -56,9 +58,15 @@
 <template name="household_expense_edit_row">
   <form class="edit-form striped">
     <input class="hidden" type="number" name="created_at" value="{{created_at}}" />
-    {{#if error}}
-    <tr><td colspan="140">{{error}}</td></tr>
-    {{/if}}
+    {{#isolate}}
+      {{#if error}}
+      <tr><td colspan="140">
+        <div class="alert alert-danger">
+          {{error}}
+        </div>
+      </td></tr>
+      {{/if}}
+    {{/isolate}}
     {{> household_expense_form_row}}
   </form>
 </template>

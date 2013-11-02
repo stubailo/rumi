@@ -34,6 +34,10 @@ Household.validateExpense = function (household_id, expense) {
   var portionSum = _.reduce(_.values(expense.portions), function(sum, value) {
     return sum + value; 
   }, 0);
+
+  if(expense.cost === 0 || expense.cost === null || expense.cost === undefined) {
+    throw new Meteor.Error(0, "Please enter a cost.");
+  }
   
   if(expense.cost - portionSum !== 0) {
     throw new Meteor.Error(0, "Expenses must have a balance of 0.");
