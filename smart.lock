@@ -4,13 +4,14 @@
     "basePackages": {
       "iron-router": {},
       "bootstrap-3": {},
-      "reactive-extra": {}
+      "reactive-extra": {},
+      "mocha-web": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.6.0",
-        "commit": "c63e92d24c8210e2304ff5fed1b5c463394aeaf6"
+        "tag": "v0.6.1",
+        "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -21,6 +22,11 @@
         "git": "https://github.com/boekkooi/reactive-extra.git",
         "tag": "v0.0.6",
         "commit": "fe8d2f8e27c501be6533b419c3a00aae884b838b"
+      },
+      "mocha-web": {
+        "git": "https://github.com/mad-eye/meteor-mocha-web.git",
+        "tag": "v0.1.5",
+        "commit": "76583213dbea2c5459bcf5197a2267b71877b99c"
       }
     }
   }
