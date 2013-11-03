@@ -1,4 +1,9 @@
-/* Unit tests for user model and methods - registration, login, authorization */
+/* Unit tests for user model and methods - registration, login, authorization.
+ * Makes use of the Laika framework (http://arunoda.github.io/laika), which
+ * can simulate both server and client elements. These can emit events (and
+ * any relevant data) in response to changes in the db, and use Node's assert
+ * library to compare actual vs. expected values and catch errors via regex.
+ */
 var assert = require('assert');
 
 suite('Server only -', function() {
@@ -57,6 +62,8 @@ suite('Server only -', function() {
     assert.ok(error.message.match(/Email already exists/));
     done();
   });
+
+  // TODO: test methods from transforming the collection
 });
 
 suite('Server + client -', function() {
