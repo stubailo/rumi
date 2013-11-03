@@ -2,7 +2,6 @@
   "packages": {
     "iron-router": {},
     "bootstrap-3": {},
-    "reactive-extra": {},
-    "mocha-web": {}
+    "reactive-extra": {}
   }
 }

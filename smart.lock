@@ -4,8 +4,7 @@
     "basePackages": {
       "iron-router": {},
       "bootstrap-3": {},
-      "reactive-extra": {},
-      "mocha-web": {}
+      "reactive-extra": {}
     },
     "packages": {
       "iron-router": {
@@ -22,11 +21,6 @@
         "git": "https://github.com/boekkooi/reactive-extra.git",
         "tag": "v0.0.6",
         "commit": "fe8d2f8e27c501be6533b419c3a00aae884b838b"
-      },
-      "mocha-web": {
-        "git": "https://github.com/mad-eye/meteor-mocha-web.git",
-        "tag": "v0.1.5",
-        "commit": "76583213dbea2c5459bcf5197a2267b71877b99c"
       }
     }
   }
