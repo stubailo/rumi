@@ -53,7 +53,27 @@ Router.map(function () {
     data: function () {
       var household = Households.findOne({_id: this.params._id});
       if(household) {
-        Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.lastHouseholdVisited": this.params._id}});
+        if(household._id !== Meteor.user().profile.lastHouseholdVisited) {
+          Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.lastHouseholdVisited": this.params._id}});
+        }
+        PageSession.set("household", household);
+      } else {
+        this.setLayout("application_layout");
+        this.render("not_found");
+        this.stop();
+      }
+      return household;
+    }
+  });
+
+  this.route("log_household", {
+    path: "/households/:_id/log",
+    data: function () {
+      var household = Households.findOne({_id: this.params._id});
+      if(household) {
+        if(household._id !== Meteor.user().profile.lastHouseholdVisited) {
+          Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.lastHouseholdVisited": this.params._id}});
+        }
         PageSession.set("household", household);
       } else {
         this.setLayout("application_layout");

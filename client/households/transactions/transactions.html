@@ -28,23 +28,25 @@
     {{> household_expense_row_header}}
   </tbody>
   {{#each expenses}}
-    {{#isolate}}
-      {{#if isPayment}}
-        {{#if editing}}
-          {{> household_payment_edit_row}}
-        {{else}}
-          {{> household_payment_row}}
-        {{/if}}
-      {{else}}
-        {{#if editing}}
-          {{> household_expense_edit_row}}
-        {{else}}
-          {{> household_expense_row}}
-        {{/if}}
-      {{/if}}
-    {{/isolate}}
+    {{> transaction_row}}
   {{/each}}
   </table>
+</template>
+
+<template name="transaction_row">
+  {{#if isPayment}}
+    {{#if editing}}
+      {{> household_payment_edit_row}}
+    {{else}}
+      {{> household_payment_row}}
+    {{/if}}
+  {{else}}
+    {{#if editing}}
+      {{> household_expense_edit_row}}
+    {{else}}
+      {{> household_expense_row}}
+    {{/if}}
+  {{/if}}
 </template>
 
 <template name="transactions_balances">

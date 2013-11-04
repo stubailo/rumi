@@ -1,4 +1,5 @@
 Household = function (doc) {
+  // make sure that each transaction has the same set of portions, for convenience
   if(doc.user_ids) {
     var defaultPortions = _.object(doc.user_ids.map(function(user_id) {
       return [user_id, 0];
@@ -15,11 +16,14 @@ Household = function (doc) {
     }
   }
 
+  // add all of the attributes retrieved from the database to the object
   _.extend(this, doc);
 };
 
+// attributes that are allowed when a household is created
 Household.attributes = ["_id", "name", "user_ids"];
 
+// function to check if new or updated expense is valid
 Household.validateExpense = function (household_id, expense) {
   var household = Households.findOne({_id: household_id});
   if(!Ability.can("update", "household", household)) {
@@ -53,6 +57,7 @@ Household.validateExpense = function (household_id, expense) {
   return true;
 };
 
+// function to check if expense can be deleted
 Household.validateDeleteExpense = function (household_id, expense) {
   if(expense.user_id !== Meteor.user()._id) {
     throw new Meteor.Error(0, "Expenses can only be deleted by the person that paid for them.");
@@ -64,17 +69,21 @@ Household.validateDeleteExpense = function (household_id, expense) {
 _.extend(Household.prototype, {
   // Household methods go here
 
+  // gets the actual user objects of people that belong to the household
   users: function() {
     return Meteor.users.find({_id: {$in: this.user_ids}}).fetch();
   },
 
-  // the argument is a dictionary of user_ids to numbers
+  // adds some necessary attributes and calls the server method to add
+  // an expense
   addExpense: function(obj, callback) {
     obj.created_at = new Date().getTime();
     obj.household_id = this._id;
     Meteor.call("addExpenseToHousehold", this._id, obj, callback);
   },
 
+  // gets old expense, extends it with attributes from the updated fields
+  // and saves it back to the database
   updateExpense: function(obj, callback) {
     var old_expense = _.find(this.expenses, function(expense) {
       return expense.created_at === obj.created_at;
@@ -84,6 +93,7 @@ _.extend(Household.prototype, {
     Meteor.call("updateExpenseInHousehold", this._id, new_expense, callback);
   },
 
+  // creates an empty transaction
   newTransaction: function() {
     var portions = {};
     this.user_ids.forEach(function(user_id) {
@@ -105,7 +115,6 @@ _.extend(Household.prototype, {
   // and what they owe
   getBalances: function() {
     if(!this.expenses || this.expenses.length === 0) {
-      console.log(this);
       return _.object(_.map(this.user_ids, function(user_id) {
         return [user_id, 0];
       }));
@@ -146,6 +155,8 @@ _.extend(Household.prototype, {
     return users;
   },
 
+  // checks if all of the balances add up to zero, this is a precondition
+  // for people being able to even out
   checkBalances: function () {
     var balances = this.getBalances();
 
@@ -220,12 +231,14 @@ _.extend(Household.prototype, {
   }
 });
 
+// define Meteor collection
 Households = new Meteor.Collection("households", {
   transform: function(doc) {
     return new Household(doc);
   }
 });
 
+// publish only the households that this user is in
 if(Meteor.isServer) {
   Meteor.publish("households", function () {
     return Households.find({user_ids: this.userId});

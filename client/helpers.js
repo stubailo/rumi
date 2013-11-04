@@ -18,3 +18,11 @@ Handlebars.registerHelper("user_email", function(user_id) {
 Handlebars.registerHelper("can", function(action, type, obj) {
   return Ability.can(action, type, obj);
 });
+
+Handlebars.registerHelper("equals", function(a, b) {
+  return a === b;
+});
+
+Handlebars.registerHelper("formatTime", function(timestamp) {
+  return moment(timestamp).format('MMMM Do YYYY, h:mm:ss a');
+});

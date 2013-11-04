@@ -1,10 +1,12 @@
-Template.transactions.helpers({
+Template.transaction_row.helpers({
   editing: function() {
     return this.created_at === PageSession.get("household_expense_editing");
   },
   isPayment: function() {
     return this.cost < 0;
-  },
+  }
+});
+Template.transactions.helpers({
   payment_tab: function () {
     return PageSession.get("addTransactionFormState") === "payment";
   }

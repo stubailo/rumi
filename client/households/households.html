@@ -27,6 +27,62 @@
     {{> transactions}}
 </template>
 
+<template name="log_household">
+  <h2>{{name}}</h2>
+  <h4>Event log</h4>
+  <table class="transaction-table">
+  {{#each log}}
+    {{> log_entry}}
+  {{/each}}
+</table>
+</template>
+
+<template name="log_entry">
+      {{> log_entry_summary}}
+</template>
+
+<template name="log_entry_summary">
+  {{#if equals type "addUser"}}
+    <tbody class="log-header"><tr><td colspan=100>
+      {{this.user}}
+      added user {{data.userAdded}}
+      at {{formatTime time}}
+    </td></tr></tbody>
+  {{/if}}
+  {{#if equals type "removeSelf"}}
+    <tbody class="log-header"><tr><td colspan=100>
+      {{this.user}}
+      left the household
+      at {{formatTime time}}
+    </td></tr></tbody>
+  {{/if}}
+  {{#if equals type "addExpense"}}
+    <tbody class="log-header"><tr><td colspan=100>
+      {{this.user}}
+      added a transaction
+      at {{formatTime time}}
+    </td></tr></tbody>
+    {{> transaction_row data.newExpense}}
+  {{/if}}
+  {{#if equals type "removeExpense"}}
+    <tbody class="log-header"><tr><td colspan=100>
+      {{this.user}}
+      deleted a transaction
+      at {{formatTime time}}
+    </td></tr></tbody>
+    {{> transaction_row data.removedExpense}}
+  {{/if}}
+  {{#if equals type "updateExpense"}}
+    <tbody class="log-header"><tr><td colspan=100>
+      {{this.user}}
+      edited a transaction
+      at {{formatTime time}}
+    </td></tr></tbody>
+    {{> transaction_row data.oldExpense}}
+    {{> transaction_row data.newExpense}}
+  {{/if}}
+</template>
+
 <template name="households">
   {{#each households}}
   {{> household_mini}}
