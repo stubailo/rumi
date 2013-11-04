@@ -22,9 +22,16 @@
         <br />
       </div>
       <div class="col-md-6">
-        {{> transactions_balances}}
-        {{> household_add_user}}
-        {{> household_leave}}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Users
+          </div>
+          <div class="panel-body">
+            {{> transactions_balances}}
+            {{> household_add_user}}
+            {{> household_leave}}
+          </div>
+        </div>
       </div>
     </div>
     {{#if equals user_ids.length 1}}

@@ -54,10 +54,10 @@
         {{#each user_ids}}
           {{#if equals this currentUser._id}}
           {{else}}
-            {{#if selected ..}}
-              <option value="{{this}}" selected>paid {{user_email ..}}</option>
+            {{#if selected ../..}}
+              <option value="{{this}}" selected>paid {{user_email ../..}}</option>
             {{else}}
-              <option value="{{this}}">paid {{user_email ..}}</option>
+              <option value="{{this}}">paid {{user_email ../..}}</option>
             {{/if}}
           {{/if}}
         {{/each}}

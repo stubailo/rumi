@@ -102,6 +102,13 @@ _.extend(Household.prototype, {
     });
 
     var new_expense = _.extend({}, old_expense, obj);
+
+    if(_.isEqual(new_expense, old_expense)) {
+      // silently do nothing
+      callback();
+      return;
+    }
+
     Meteor.call("updateExpenseInHousehold", this._id, new_expense, callback);
   },
 

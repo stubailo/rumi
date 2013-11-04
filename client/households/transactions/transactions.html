@@ -20,16 +20,18 @@
     {{> household_add_expense}}
   {{/if}}
 
-  <tbody>
-    <tr class="transaction-history-header"><td colspan=100>
-        <h4>Transaction History</h4>
-    </td></tr>
+  {{#if expenses.length}}
+    <tbody>
+      <tr class="transaction-history-header"><td colspan=100>
+          <h4>Transaction History</h4>
+      </td></tr>
 
-    {{> household_expense_row_header}}
-  </tbody>
-  {{#each expenses}}
-    {{> transaction_row}}
-  {{/each}}
+      {{> household_expense_row_header}}
+    </tbody>
+    {{#each expenses}}
+      {{> transaction_row}}
+    {{/each}}
+  {{/if}}
   </table>
 </template>
 
@@ -51,16 +53,13 @@
 
 <template name="transactions_balances">
   <table class="balances-table">
-    <tr><th>User</th><th>Balance</th></tr>
+    <ul class="list-unstyled">
       {{#each object balances}}
-        <tr>
-          <td>
-            {{user_email key}}
-          </td>
-          <td>
-            {{owes_or_is_owed value}}
-          </td>
-        </tr>
+        <li>
+          <strong>{{user_email key}}</strong>
+          {{owes_or_is_owed value}}
+        </li>
       {{/each}}
+    </ul>
   </table>
 </template>

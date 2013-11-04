@@ -9,6 +9,8 @@ Template.household_add_expense.error = function () {
 function addExpenseError(error) {
   if(error) {
     PageSession.set("household_expense_add_error", error.reason);
+  } else {
+    PageSession.set("household_expense_add_error", undefined);
   }
 }
 
