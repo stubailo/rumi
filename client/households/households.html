@@ -17,6 +17,9 @@
     <div class="household-users row">
       <div class="col-md-6">
         <h2>{{name}}</h2>
+        <a href="{{pathFor 'log_household'}}">View Change Log</a>
+        <br />
+        <br />
       </div>
       <div class="col-md-6">
         {{> transactions_balances}}
@@ -24,13 +27,21 @@
         {{> household_leave}}
       </div>
     </div>
-    {{> transactions}}
+    {{#if equals user_ids.length 1}}
+      <br />
+      <br />
+      <div class="well">Add another person to your household to start splitting expenses!</div>
+    {{else}}
+      {{> transactions}}
+    {{/if}}
 </template>
 
 <template name="log_household">
   <h2>{{name}}</h2>
-  <h4>Event log</h4>
-  <table class="transaction-table">
+  <h4>Change Log</h4>
+  <p>This log keeps track of all changes to the household, and cannot be deleted from.  Use this to make sure nothing fishy is going on!</p>
+  <a href="{{pathFor 'household'}}">Back to household</a>
+  <table class="transaction-log-table">
   {{#each log}}
     {{> log_entry}}
   {{/each}}

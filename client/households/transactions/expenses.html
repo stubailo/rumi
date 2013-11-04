@@ -6,21 +6,27 @@
     {{#each householdUsers}}
     <th>{{user_email this}}</th>
     {{/each}}
+    {{#if currentPageIs "household"}}
     <th class="actions-column"></th>
+    {{/if}}
   </tr>
 </template>
 
 <template name="household_expense_row">
   <tbody class="striped">
+  {{#if currentPageIs "log_household"}}
+    {{> household_expense_row_header}}
+  {{/if}}
   <tr class="expense">
     <td>{{user_email user_id}}</td>
-    <td>{{cost}}</td>
+    <td>{{formatCurrency cost}}</td>
     <td>{{description}}</td>
     {{#each object portions}}
     <td>
-      {{value}}
+      {{formatCurrency value}}
     </td>
     {{/each}}
+    {{#if currentPageIs "household"}}
     <td>
       {{#if can "update" "expense" this}}
       <button class="edit btn btn-xs btn-warning">
@@ -31,6 +37,7 @@
       </button>
       {{/if}}
     </td>
+    {{/if}}
   </tr>
   </tbody>
 </template>

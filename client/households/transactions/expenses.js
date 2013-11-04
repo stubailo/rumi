@@ -17,6 +17,10 @@ Template.household_add_expense.events = {
     event.preventDefault();
 
     var formData = Util.serializeForm(template.find("form"));
+    if(formData.cost < 0) {
+      PageSession.set("household_expense_add_error", "Cost must be positive.");
+      return;
+    }
     formData.user_id = Meteor.user()._id;
     this.addExpense(formData, addExpenseError);
   }

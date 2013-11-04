@@ -22,13 +22,12 @@ Meteor.methods({
   removeSelfFromHousehold: function (household_id) {
     var logEntry = generateLogEntry("removeSelf");
 
-    Households.update({_id: household_id}, {$pull: {user_ids: this.userId}, $push: {log: logEntry}});
+    Households.update({_id: household_id, user_ids: this.userId}, {$pull: {user_ids: this.userId}, $push: {log: logEntry}});
   },
   addExpenseToHousehold: function(household_id, expense) {
     Household.validateExpense(household_id, expense);
 
     var logEntry = generateLogEntry("addExpense", {newExpense: expense});
-    console.log(logEntry);
 
     Households.update({_id: household_id}, {$push: {"expenses": expense, log: logEntry}});
   },
@@ -38,6 +37,11 @@ Meteor.methods({
     var oldExpense = _.find(Households.findOne({_id: household_id}).expenses, function(existingExpense) {
       return existingExpense.created_at === expense.created_at;
     });
+
+    if(!oldExpense || oldExpense.user_id !== expense.user_id) {
+      throw new Meteor.Error(0, "Error when updating transaction.");
+    }
+
     var logEntry = generateLogEntry("updateExpense", {oldExpense: oldExpense, newExpense: expense});
     Households.update({_id: household_id, "expenses.created_at": expense.created_at}, {$set: {"expenses.$": expense}, $push: {log: logEntry}});
   },
@@ -46,6 +50,6 @@ Meteor.methods({
 
     var logEntry = generateLogEntry("removeExpense", {removedExpense: expense});
 
-    Households.update({_id: household_id}, {$pull: {"expenses": {"created_at": expense.created_at}}, $push: {log: logEntry}});
+    Households.update({_id: household_id, "expenses.created_at": expense.created_at}, {$pull: {"expenses": {"created_at": expense.created_at}}, $push: {log: logEntry}});
   }
 });

@@ -17,9 +17,16 @@ function clearTemp() {
   Session.set("temp", {});
 }
 
+function setPage() {
+  if(this.route && this.route.name) {
+    PageSession.set("page", this.route.name);
+  }
+}
+
 // only render the home page if user is not signed in
 Router.before(checkSignIn, {except: ["home"]});
 Router.before(clearTemp);
+Router.before(setPage);
 
 Router.map(function () {
   this.route("home", {

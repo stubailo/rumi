@@ -16,6 +16,13 @@ Household = function (doc) {
     }
   }
 
+  // sort log
+  if(doc.log) {
+    doc.log = _.sortBy(doc.log, function(logEntry) {
+      return -logEntry.time;
+    });
+  }
+
   // add all of the attributes retrieved from the database to the object
   _.extend(this, doc);
 };
@@ -49,8 +56,13 @@ Household.validateExpense = function (household_id, expense) {
 
   // it's a payment
   if(expense.cost < 0) {
-    if(_.filter(_.pairs(expense.portions), function(portion) { return portion[1] !== 0; }).length > 1) {
+    var targets = _.filter(_.pairs(expense.portions), function(portion) { return portion[1] !== 0; });
+    if(targets.length > 1) {
       throw new Meteor.Error(0, "Payments must be between two people.");
+    }
+
+    if(targets[0][0] === expense.user_id) {
+      throw new Meteor.Error(0, "You can't pay yourself.");
     }
   }
 

@@ -2,16 +2,18 @@
   <tbody class="striped">
   <tr class="payment">
     <td class="payment" colspan=100>
-      {{user_email user_id}} paid {{user_email target}} {{amount}}
-      {{#if can "update" "expense" this}}
-      <div class="pull-right">
-        <a class="edit btn btn-xs btn-warning">
-          <span class="glyphicon glyphicon-pencil"></span>
-        </a>
-        <a class="delete btn btn-xs btn-danger">
-          <span class="glyphicon glyphicon-remove"></span>
-        </a>
-      </div>
+      {{user_email user_id}} paid {{user_email target}} {{formatCurrency amount}}
+      {{#if currentPageIs "household"}}
+        {{#if can "update" "expense" this}}
+        <div class="pull-right">
+          <a class="edit btn btn-xs btn-warning">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </a>
+          <a class="delete btn btn-xs btn-danger">
+            <span class="glyphicon glyphicon-remove"></span>
+          </a>
+        </div>
+        {{/if}}
       {{/if}}
     </td>
   </tr>
@@ -50,11 +52,14 @@
     <div class="form-group">
       <select name="to" class="form-control input-sm">
         {{#each user_ids}}
-        {{#if selected ..}}
-        <option value="{{this}}" selected>paid {{user_email ..}}</option>
-        {{else}}
-        <option value="{{this}}">paid {{user_email ..}}</option>
-        {{/if}}
+          {{#if equals this currentUser._id}}
+          {{else}}
+            {{#if selected ..}}
+              <option value="{{this}}" selected>paid {{user_email ..}}</option>
+            {{else}}
+              <option value="{{this}}">paid {{user_email ..}}</option>
+            {{/if}}
+          {{/if}}
         {{/each}}
       </select>
     </div>

@@ -24,5 +24,13 @@ Handlebars.registerHelper("equals", function(a, b) {
 });
 
 Handlebars.registerHelper("formatTime", function(timestamp) {
-  return moment(timestamp).format('MMMM Do YYYY, h:mm:ss a');
+  return moment(timestamp).format('h:mm:ss a [on] MMMM Do YYYY');
+});
+
+Handlebars.registerHelper("currentPageIs", function(page) {
+  return PageSession.get("page") === page;
+});
+
+Handlebars.registerHelper("formatCurrency", function(amount) {
+  return "$" + amount.toFixed(2);
 });
