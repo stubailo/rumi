@@ -1,6 +1,7 @@
 /iron-router
 /bootstrap-3
 /reactive-extra
+<<<<<<< HEAD
 /reactive-extra
 /reactive-extra
 /iron-router
@@ -14,3 +15,5 @@
 /reactive-extra
 /mocha-web
 /iron-router
+=======
+>>>>>>> e592845261d56ae7a6cd3b5530b7563c2efa72f6
