@@ -24,12 +24,12 @@
       <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-heading">
-            Housemates
+            Housemates 
+            {{> household_leave}}
           </div>
           <div class="panel-body">
             {{> transactions_balances}}
             {{> household_add_user}}
-            {{> household_leave}}
           </div>
         </div>
       </div>
@@ -127,5 +127,5 @@
 </template>
 
 <template name="household_leave">
-<!--   <button class="btn btn-danger btn-md">Leave household</button> -->
+  <button class="btn btn-danger btn-xs pull-right">Leave Household</button>
 </template>
