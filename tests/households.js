@@ -1,7 +1,7 @@
 /* Unit tests for household model and methods - creation and adding or removing
  * of users. Makes use of the Laika framework (http://arunoda.github.io/laika),
- * which can simulate both server and client elements. These can emit events (
- * and any relevant data) in response to changes in the db, and use Node's assert
+ * which can simulate both server and client elements. These can emit events (and
+ * any relevant data) in response to changes in the db, and use Node's assert
  * library to compare actual vs. expected values and catch errors via regex.
  */
 
